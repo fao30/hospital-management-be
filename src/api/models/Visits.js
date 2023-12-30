@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Visits.belongsTo(models.Hospitals, { foreignKey: "hospital_id" });
       Visits.belongsTo(models.Users, { foreignKey: "patient_id" });
       Visits.belongsTo(models.Payment_Statuses, { foreignKey: "status_id" });
+      Visits.hasMany(models.Files, { foreignKey: "visit_id" });
     }
   }
   Visits.init(
