@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       visit_id: DataTypes.INTEGER,
+      references: {
+        model: {
+          tableName: "Visits",
+        },
+        key: "id",
+      },
     },
     {
       sequelize,
