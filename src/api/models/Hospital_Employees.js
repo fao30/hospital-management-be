@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // HERE define association here
+      // Users.belongsTo(models.Countries, { foreignKey: "country_id" });
+      Hospital_Employees.belongsTo(models.Hospitals, {
+        foreignKey: "hospital_id",
+      });
+      Hospital_Employees.belongsTo(models.Users, {
+        foreignKey: "user_id",
+      });
     }
   }
   Hospital_Employees.init(
