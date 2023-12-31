@@ -15,7 +15,7 @@ router.post(
 
     if (roleId === 2) {
       return res.json({
-        message: "Successfully registered as MOP",
+        message: "Successfully registered as Hospital Admin",
         info: {
           id: req.user.id,
           email: req.user.email,
@@ -26,7 +26,18 @@ router.post(
 
     if (roleId === 3) {
       return res.json({
-        message: "Successfully registered as Student",
+        message: "Successfully registered as Doctor",
+        info: {
+          id: req.user.id,
+          email: req.user.email,
+          role: roleId,
+        },
+      });
+    }
+
+    if (roleId === 4) {
+      return res.json({
+        message: "Successfully registered as Patient",
         info: {
           id: req.user.id,
           email: req.user.email,
