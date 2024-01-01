@@ -38,6 +38,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      gender: {
+        type: Sequelize.ENUM,
+        values: ["FEMALE", "MALE"],
+      },
       country_id: {
         type: Sequelize.INTEGER,
         references: {
