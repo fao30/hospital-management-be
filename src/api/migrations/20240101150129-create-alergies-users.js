@@ -2,38 +2,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Medicines_Treatments", {
+    await queryInterface.createTable("Alergies_Users", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      medicine_id: {
+      alergy_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Medicines",
+            tableName: "Alergies",
           },
           key: "id",
         },
       },
-      medicines_treatment: {
-        type: Sequelize.TEXT,
-      },
-      amount: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      visit_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Visits",
+            tableName: "Users",
           },
           key: "id",
         },
@@ -41,16 +30,14 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date(),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: new Date(),
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Medicines_Treatments");
+    await queryInterface.dropTable("Alergies_Users");
   },
 };
