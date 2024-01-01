@@ -15,11 +15,6 @@
 		"dialect": "mysql"
 	},
 	"production": {
-		"username": "kima_prod",
-		"password": "Y8veVxuiSpGCmM",
-		"database": "kima_prod",
-		"host": "127.0.0.1",
-		"port": 7765,
-		"dialect": "postgres"
-	}
+    	"use_env_variable": "DATABASE_URL"
+  }
 }

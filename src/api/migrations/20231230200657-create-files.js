@@ -29,6 +29,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      treatment_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "Treatments",
+          },
+          key: "id",
+        },
+      },
     });
   },
   async down(queryInterface, Sequelize) {

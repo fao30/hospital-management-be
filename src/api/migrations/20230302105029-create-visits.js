@@ -62,6 +62,27 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date(),
       },
+      weight: {
+        type: Sequelize.DECIMAL,
+      },
+      height: {
+        type: Sequelize.DECIMAL,
+      },
+      temperature: {
+        type: Sequelize.DECIMAL,
+      },
+      blood_presure: {
+        type: Sequelize.DECIMAL,
+      },
+      diagnosis: {
+        type: Sequelize.TEXT,
+      },
+      case_notes: {
+        type: Sequelize.TEXT,
+      },
+      gender: {
+        type: Sequelize.TEXT,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
