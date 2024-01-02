@@ -16,24 +16,30 @@ module.exports = {
       },
       {
         id: 2,
-        name: "hospital-admin",
+        name: "hospital-manager",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 3,
-        name: "doctor",
+        name: "hospital-admin",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 4,
-        name: "patient",
+        name: "doctor",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 5,
+        name: "patient",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 6,
         name: "pharmacist",
         createdAt: new Date(),
         updatedAt: new Date(),
