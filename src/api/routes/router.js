@@ -1,4 +1,7 @@
 const router = require("express").Router();
+const RolesRoutes = require("./listRoutes/rolesRoutes");
+
+router.use("/api/roles", RolesRoutes);
 
 router.get("/", (req, res) => {
   console.log("EEHEHEHEHEHHEE");

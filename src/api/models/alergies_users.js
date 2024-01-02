@@ -13,19 +13,23 @@ module.exports = (sequelize, DataTypes) => {
   }
   Alergies_Users.init(
     {
-      alergy_id: DataTypes.INTEGER,
-      references: {
-        model: {
-          tableName: "Alergies",
+      alergy_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: "Alergies",
+          },
+          key: "id",
         },
-        key: "id",
       },
-      user_id: DataTypes.INTEGER,
-      references: {
-        model: {
-          tableName: "Users",
+      user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
         },
-        key: "id",
       },
     },
     {

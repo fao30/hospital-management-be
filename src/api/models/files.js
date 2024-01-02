@@ -14,13 +14,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Files.init(
     {
-      name: DataTypes.STRING,
-      visit_id: DataTypes.INTEGER,
-      references: {
-        model: {
-          tableName: "Visits",
+      name: {
+        type: DataTypes.STRING,
+        visit_id: DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: "Visits",
+          },
+          key: "id",
         },
-        key: "id",
       },
     },
     {
