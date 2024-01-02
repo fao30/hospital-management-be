@@ -1,6 +1,6 @@
 {
 	"name": "fao-med-be",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "API for Fao-Med",
 	"main": "src/server.js",
 	"scripts": {
