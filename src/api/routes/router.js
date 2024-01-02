@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const RolesRoutes = require("./listRoutes/rolesRoutes");
 const CountriesRoutes = require("./listRoutes/countriesRoutes");
-const PaymentStatusesRoutes = require("./listRoutes/countriesRoutes");
+const PaymentStatusesRoutes = require("./listRoutes/paymentStatusesRoutes");
 
 router.use("/api/roles", RolesRoutes);
 router.use("/api/countries", CountriesRoutes);
