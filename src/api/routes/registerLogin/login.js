@@ -11,7 +11,7 @@ router.post("/login", async (req, res, next) => {
       throw new AppError(NO_CONTENT, "Email or Password required");
     }
 
-    const user = await Customer.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       throw new AppError(NO_CONTENT, "User is undefined");

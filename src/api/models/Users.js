@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const { hashPassword, comparePassword } = require("../Helpers/Bycript");
+
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -12,10 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       Users.belongsTo(models.Countries, { foreignKey: "country_id" });
       Users.belongsTo(models.Roles, { foreignKey: "role_id" });
       Users.hasMany(models.Treatments, { foreignKey: "doctor_id" });
+      Users.hasMany(models.Alergies_Users, { foreignKey: "user_id" });
       Users.hasMany(models.Hospital_Employees, {
         foreignKey: "user_id",
       });
-      Treatments.hasMany(models.Users, {
+      Users.hasMany(models.Treatments, {
         foreignKey: "doctor_id",
       });
     }
@@ -83,7 +86,24 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Users",
+      hooks: {
+        beforeCreate: (user) => {
+          if (user.password) {
+            user.password = hashPassword(user.password);
+          }
+        },
+        beforeUpdate: (user) => {
+          if (user.password) {
+            user.password = hashPassword(user.password);
+          }
+        },
+      },
     }
   );
+
+  Users.prototype.checkPassword = function (password) {
+    return comparePassword(password, this.password);
+  };
+
   return Users;
 };
