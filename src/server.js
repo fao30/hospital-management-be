@@ -2,6 +2,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+const passportInitializer = require("./api/utils/passportStrategies");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
@@ -30,6 +31,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(passportInitializer.initialize());
 
 app.use("/", router);
 

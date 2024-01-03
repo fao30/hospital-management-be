@@ -133,6 +133,37 @@
 				}
 			}
 		},
+		"/api/login/refresh": {
+			"post": {
+				"tags": ["Register and Login"],
+				"summary": "Refresh the access token",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"refresh_token": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Login success"
+					},
+					"403": {
+						"description": "Cannot login"
+					},
+					"404": {
+						"description": "User not registered"
+					}
+				}
+			}
+		},
 		"/api/roles": {
 			"get": {
 				"tags": ["Roles"],
