@@ -26,27 +26,24 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         allowNull: false,
       },
-      medicine_id: {
+      hospital_id: {
         type: DataTypes.INTEGER,
         references: {
           model: {
-            tableName: "Medicines",
+            tableName: "Hospitals",
           },
           key: "id",
         },
       },
-      medicines_treatment: {
-        type: DataTypes.TEXT,
+      is_hospital_manager: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      amount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      visit_id: {
+      user_id: {
         type: DataTypes.INTEGER,
         references: {
           model: {
-            tableName: "Visits",
+            tableName: "Users",
           },
           key: "id",
         },

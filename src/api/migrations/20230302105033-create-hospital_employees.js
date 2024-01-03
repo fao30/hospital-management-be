@@ -9,27 +9,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      medicine_id: {
+      hospital_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Medicines",
+            tableName: "Hospitals",
           },
           key: "id",
         },
       },
-      medicines_treatment: {
-        type: Sequelize.TEXT,
+      is_hospital_manager: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
-      amount: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      visit_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Visits",
+            tableName: "Users",
           },
           key: "id",
         },

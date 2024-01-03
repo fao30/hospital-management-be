@@ -26,9 +26,10 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      phone_number: {
-        type: Sequelize.STRING,
+      max_users: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        defaultValue: 5,
       },
       createdAt: {
         allowNull: false,

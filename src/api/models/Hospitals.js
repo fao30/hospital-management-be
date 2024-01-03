@@ -40,9 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false,
       },
-      phone_number: {
-        type: DataTypes.STRING,
+      max_users: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 5,
       },
     },
     {
