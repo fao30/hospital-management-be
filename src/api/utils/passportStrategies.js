@@ -5,7 +5,7 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const JWTStrategy = require("passport-jwt").Strategy;
 const localStrategy = require("passport-local");
 
-const AppError = require("../helpers/appError.js");
+const AppError = require("../helpers/AppError");
 const {
   SUPER_ADMIN,
   ADMIN_HOSPITAL,
