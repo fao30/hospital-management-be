@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 3000;
 // cors
 const allowedOrigins = `${process.env.ALLOWED_ORIGINS}`.split(",");
 
+const swaggerPath = require("./config/apidocs.json");
+const swaggerUI = require("swagger-ui-express");
+
 app.use(
   cors({
     origin: allowedOrigins,
@@ -29,6 +32,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.use("/", router);
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerPath));
 
 app.listen(PORT, async () => {
   console.log(`Server listening on port ${PORT}`);
