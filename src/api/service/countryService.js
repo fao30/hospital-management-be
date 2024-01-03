@@ -8,7 +8,7 @@ class Countrieservice {
   static async findAllCountries() {
     return Countries.findAll({
       where: {
-        id: { [Sequelize.Op.not]: 1 },
+        // id: { [Sequelize.Op.not]: 1 },
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],

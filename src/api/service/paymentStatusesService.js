@@ -8,7 +8,7 @@ class PaymentStatusesService {
   static async findAllPaymentStatuses() {
     return Payment_Statuses.findAll({
       where: {
-        id: { [Sequelize.Op.not]: 1 },
+        // id: { [Sequelize.Op.not]: 1 },
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],

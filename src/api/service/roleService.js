@@ -8,7 +8,7 @@ class RoleService {
   static async findAllRoles() {
     return Roles.findAll({
       where: {
-        id: { [Sequelize.Op.not]: 1 },
+        // id: { [Sequelize.Op.not]: 1 },
       },
       attributes: {
         exclude: ["createdAt", "updatedAt"],
