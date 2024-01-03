@@ -14,7 +14,7 @@ const streams = [
 ];
 
 const log = bunyan.createLogger({
-  name: "Hebronstar",
+  name: "Hospital-management-system",
   streams,
   serializers: bunyan.stdSerializers,
 });

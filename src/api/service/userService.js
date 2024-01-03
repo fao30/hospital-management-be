@@ -8,6 +8,10 @@ const attributes = {
   exclude: ["password", "createdAt", "updatedAt"],
 };
 
+const findOneUser = async ({ query }) => {
+  return await Users.findOne({ where: query });
+};
+
 const findUserQuery = async (query) => {
   return await Users.findAll({ where: query });
 };
@@ -16,10 +20,14 @@ const findUserAndComparePassword = async (email, password) => {
   const user = await Users.findOne({ where: { email } });
   const comparePassword = await bcryptService.comparePassword(
     password,
-    user.password
+    user.password,
   );
 
   return { user, comparePassword };
+};
+
+const createUser = async (data) => {
+  return Users.create(data);
 };
 
 const register = async ({ email, password, ...body }) => {
@@ -40,7 +48,9 @@ const register = async ({ email, password, ...body }) => {
 };
 
 module.exports = {
+  createUser,
   findUserAndComparePassword,
   findUserQuery,
+  findOneUser,
   register,
 };
