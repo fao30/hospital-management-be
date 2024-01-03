@@ -4,9 +4,9 @@ const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const { NO_CONTENT, BAD_REQUEST } = require("../../constants/statusCode");
 const AppError = require("../../helpers/AppError");
-const errorMiddleware = require("../../middlewares/ErrorMindellwares");
+const errorMiddleware = require("../../middlewares/ErrorMiddleware");
 
-router.post("/login", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     console.log(info);
 
