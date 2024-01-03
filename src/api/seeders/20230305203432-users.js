@@ -36,6 +36,7 @@ module.exports = {
         phone_number: "6287762626263",
         country_id: 1,
         role_id: 2,
+        hospital_id: 1,
         is_active: true,
         createdAt: new Date(),
         updatedAt: new Date(),

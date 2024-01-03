@@ -60,6 +60,16 @@ module.exports = {
           key: "id",
         },
       },
+      hospital_id: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "Hospitals",
+          },
+          key: "id",
+        },
+      },
       is_active: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
