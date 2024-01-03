@@ -14,11 +14,11 @@ router.post("/", async (req, res, next) => {
 
     req.login(user, { session: false }, async (err) => {
       if (err) return next(err);
-
       const payload = {
         id: user.id,
         email: user.email,
         role_id: user.role_id,
+        hospital_id: user?.hospital_id || null,
       };
       const token = generateAccessToken(payload);
       const refresh_token = generateRefreshToken(payload);
@@ -53,7 +53,7 @@ router.post("/refresh", async (req, res, next) => {
 
 function generateAccessToken(payload) {
   return jwt.sign({ user: payload }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "15m", // Set the desired expiration time
+    expiresIn: "1d", // Set the desired expiration time
   });
 }
 

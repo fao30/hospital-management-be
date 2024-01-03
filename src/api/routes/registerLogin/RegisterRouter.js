@@ -5,46 +5,39 @@ const { NO_CONTENT } = require("../../constants/statusCode");
 
 router.post(
   "/",
-  passport.authenticate("signup", { session: false }),
+  passport.authenticate("register", { session: false }),
   tryCatch(async (req, res) => {
     if (!req.user) {
       throw new AppError(NO_CONTENT, "User in not registered yet");
     }
 
-    const { roleId } = req.user;
+    const { role_id, id, email } = req.user;
+    let message = "Successfully registered as ";
+    // const query = {
+    //   email: email.toLowerCase(),
+    // };
+    // const duplicate = await userService.findUserQuery(query);
+    // const duplicateUser = duplicate[0];
 
-    if (roleId === 2) {
-      return res.json({
-        message: "Successfully registered as Hospital Admin",
-        info: {
-          id: req.user.id,
-          email: req.user.email,
-          role: roleId,
-        },
-      });
+    if (role_id === 2) {
+      message += "MANAGER HOSPITAL";
+    } else if (role_id === 3) {
+      message += "ADMIN HOSPITAL";
+    } else if (role_id === 4) {
+      message += "DOCTOR";
+    } else if (role_id === 5) {
+      message += "PATIENT";
+    } else if (role_id === 6) {
+      message += "PHARMACIST";
     }
-
-    if (roleId === 3) {
-      return res.json({
-        message: "Successfully registered as Doctor",
-        info: {
-          id: req.user.id,
-          email: req.user.email,
-          role: roleId,
-        },
-      });
-    }
-
-    if (roleId === 4) {
-      return res.json({
-        message: "Successfully registered as Patient",
-        info: {
-          id: req.user.id,
-          email: req.user.email,
-          role: roleId,
-        },
-      });
-    }
+    return res.json({
+      message,
+      info: {
+        id: id,
+        email: email,
+        role: role_id,
+      },
+    });
   })
 );
 

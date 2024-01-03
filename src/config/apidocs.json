@@ -41,7 +41,12 @@
 		"/api/register": {
 			"post": {
 				"tags": ["Register and Login"],
-				"summary": " User register",
+				"summary": " User register, bearer token required",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
 				"requestBody": {
 					"content": {
 						"application/json": {
@@ -80,9 +85,6 @@
 									},
 									"hospital_id": {
 										"type": "integer"
-									},
-									"is_active": {
-										"type": "boolean"
 									}
 								}
 							}

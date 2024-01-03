@@ -80,9 +80,6 @@ module.exports = {
       case_notes: {
         type: Sequelize.TEXT,
       },
-      gender: {
-        type: Sequelize.TEXT,
-      },
     });
   },
   async down(queryInterface, Sequelize) {
