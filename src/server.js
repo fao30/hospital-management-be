@@ -4,9 +4,13 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require("express");
 const bodyParser = require("body-parser");
-const logger = require("morgan");
+const morgan = require("morgan");
 const cors = require("cors");
 const router = require("./api/routes/router");
+const logger = require("./api/utils/logger");
+
+// import sequelize from model
+const { sequelize } = require("./api/models");
 
 const app = express();
 
@@ -19,10 +23,10 @@ app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
-  })
+  }),
 );
 
-app.use(logger("dev"));
+app.use(morgan("dev"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,7 +35,7 @@ app.use(express.static("public"));
 app.use("/", router);
 
 app.listen(PORT, async () => {
-  console.log(`Server listening on port ${PORT}`);
-  // await sequelize.authenticate();
-  console.log(`DB connected successfully`);
+  logger.info(`Server listening on port ${PORT}`);
+  await sequelize.authenticate();
+  logger.info(`DB connected successfully`);
 });
