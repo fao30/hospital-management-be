@@ -42,7 +42,7 @@ class hospitalsController {
 
   static async updateHospital(req, res) {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, address, phone_number, is_active, max_users } = req.body;
     const oldHospital = await HospitalsService.findHospitalById(id);
 
     if (!oldHospital) {

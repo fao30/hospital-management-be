@@ -52,6 +52,7 @@ class visitsController {
     oldVisit.patient_id = patient_id;
     oldVisit.hospital_id = hospital_id;
     oldVisit.due_amount = due_amount;
+    oldVisit.paid_amount = paid_amount;
     oldVisit.date_start = date_start;
     oldVisit.date_end = date_end;
     oldVisit.weight = weight;
