@@ -22,6 +22,9 @@ module.exports = {
       article_number: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       currency: {
         type: Sequelize.STRING,
         defaultValue: "RP",

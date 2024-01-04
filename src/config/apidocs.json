@@ -391,7 +391,7 @@
                 }
             }
 		},
-		"/api/madicine-treatments": {
+		"/api/medicine-treatments": {
 			"get": {
 				"tags": ["Medicine-Treatments"],
 				"summary": "DEV: Get all Medicine-Treatments, only superadmin, manegerial level in hospital and doctor can see",
@@ -584,7 +584,7 @@
                 }
             }
         },
-		"/api/madicine-treatments/{id}": {
+		"/api/medicine-treatments/{id}": {
             "get": {
                 "tags": ["Medicine-Treatments"],
                 "security": [
@@ -985,7 +985,7 @@
 				},
 				"article_number": {
 				  "type": "string",
-				  "description": "article_number of the madicine",
+				  "description": "article_number of the medicine",
 				  "enum": ["XII-2021-02-30"],
 				  "examples": "XII-2021-02-30"	
 				},
