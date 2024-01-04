@@ -37,6 +37,14 @@
 			"description": "API for Treatments"
 		},
 		{
+			"name": "Medicines",
+			"description": "API for Medicines"
+		},
+		{
+			"name": "Medicine-Treatments",
+			"description": "API for Medicine Treatments"
+		},
+		{
 			"name": "Payment-Statuses",
 			"description": "API for Payment-Statuses"
 		}
@@ -178,6 +186,57 @@
                     }
                 }
 			}
+		},
+		"/api/medicines": {
+			"get": {
+				"tags": ["Medicines"],
+				"summary": "Get all of Medicines",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Medicines",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicinesInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
 		},
 		"/api/hospitals": {
 			"get": {
@@ -332,6 +391,128 @@
                 }
             }
 		},
+		"/api/madicine-treatments": {
+			"get": {
+				"tags": ["Medicine-Treatments"],
+				"summary": "DEV: Get all Medicine-Treatments, only superadmin, manegerial level in hospital and doctor can see",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Medicine-Treatments",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicineTreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/medicines/{id}": {
+            "get": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Medicine by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of medicine"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Medicines",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of medicine"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicinesInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
 		"/api/treatments/{id}": {
             "get": {
                 "tags": ["Treatments"],
@@ -386,6 +567,77 @@
                         "application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/TreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+		"/api/madicine-treatments/{id}": {
+            "get": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Treatment by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Medicine-Treatments"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Medicine-Treatments",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Medicine-Treatments"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicineTreatmentsInput"
 							}
                         }
                     }
@@ -576,6 +828,35 @@
 			}
 		},
 		"schemas": {
+			"MedicineTreatmentsInput": {
+			  "type": "object",
+			  "properties": {
+				"medicine_id": {
+					"type": "integer",
+					"description": "Id of the medicine",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"medicines_treatment": {
+					"type": "string",
+					"description": "Description about the dosis of the medicine",
+					"enum": ["Paracetamol"],
+					"examples": ["Paracetamol"]
+				},
+				"quantity": {
+					"type": "integer",
+					"description": "quantity of medicine given",
+					"enum": [2],
+					"examples": [2]
+				},
+				"visit_id": {
+					"type": "integer",
+					"description": "id of the visit",
+					"enum": [1],
+					"examples": [1]
+				}
+			  }
+			},
 			"TreatmentsInput": {
 			  "type": "object",
 			  "properties": {
@@ -692,6 +973,39 @@
 					"description": "case_notes of the patient",
 					"enum": ["Flu with cought"],
 					"examples": "Flu with cought"	
+				}
+			  }
+			},
+			"MedicinesInput": {
+			  "type": "object",
+			  "properties": {
+				"hospital_id": {
+				  "type": "integer",
+				  "description": "Id of the hospital"
+				},
+				"article_number": {
+				  "type": "string",
+				  "description": "article_number of the madicine",
+				  "enum": ["XII-2021-02-30"],
+				  "examples": "XII-2021-02-30"	
+				},
+				"currency": {
+				  "type": "string",
+				  "description": "currency of the mdeicine",
+				  "enum": ["RP"],
+				  "examples": "RP"	
+				},
+				"price": {
+				  "type": "integer",
+				  "description": "price of the mdeicine",
+				  "enum": [150000],
+				  "examples": 150000	
+				},
+				"in_stock": {
+				  "type": "integer",
+				  "description": "how many meds in stock",
+				  "enum": [15],
+				  "examples": 15	
 				}
 			  }
 			},
