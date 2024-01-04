@@ -6,15 +6,10 @@ const LoginRoutes = require("./registerLogin/LoginRouter");
 const RegisterRoutes = require("./registerLogin/RegisterRouter");
 const { getJwtToken } = require("../middlewares/Authorization");
 
-router.use("/api/login", LoginRoutes);
-router.use("/api/register", getJwtToken, RegisterRoutes);
-router.use("/api/roles", RolesRoutes);
-router.use("/api/countries", CountriesRoutes);
-router.use("/api/paymentStatuses", PaymentStatusesRoutes);
-
-router.get("/", (req, res) => {
-  console.log("EEHEHEHEHEHHEE");
-  res.send("Hello, world!");
-});
+router.use("/login", LoginRoutes);
+router.use("/register", getJwtToken, RegisterRoutes);
+router.use("/roles", RolesRoutes);
+router.use("/countries", CountriesRoutes);
+router.use("/paymentStatuses", PaymentStatusesRoutes);
 
 module.exports = router;

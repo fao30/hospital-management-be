@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(passportInitializer.initialize());
 
-app.use("/", router);
+app.use("/api", router);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerPath));
 
