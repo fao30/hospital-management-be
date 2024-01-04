@@ -8,8 +8,8 @@ const attributes = {
   exclude: ["password", "createdAt", "updatedAt"],
 };
 
-const findOneUser = async ({ query }) => {
-  return await Users.findOne({ where: query });
+const findOneUser = async (email) => {
+  return await Users.findOne({ where: { email } });
 };
 
 const findUserQuery = async (query) => {

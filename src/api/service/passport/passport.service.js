@@ -23,12 +23,16 @@ exports.signup = async ({ email, password, ...restBody }, done) => {
     password: await hashPassword(password),
   };
 
+  const duplicate = await userService.findOneUser(email);
+
   const user = await userService.createUser(userToCreate);
   try {
+    if (duplicate) throw new AppError(400, "User already register", 400);
     if (!user) throw new AppError(400, "Cannot create user", 400);
 
     return done(null, user);
   } catch (err) {
     logger.error(err);
+    return done(null, err);
   }
 };

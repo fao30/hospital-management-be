@@ -2,7 +2,6 @@ const passport = require("passport");
 const { Strategy: localStrategy } = require("passport-local");
 const { signup } = require("../service/passport/passport.service");
 const { jwtToken } = require("../utils/jwt");
-const { comparePassword } = require("../utils/bcrypt");
 const userService = require("../service/userService");
 const logger = require("../utils/logger");
 const AppError = require("../helpers/AppError");
@@ -33,22 +32,20 @@ passport.use(
     },
 
     async (req, email, password, done) => {
-      const user = await userService.findOneUser({ email });
-      console.log(user.password);
-      const compare = await bcryptUtils.comparePassword(
-        password,
-        user.password,
-      );
-
       try {
+        const user = await userService.findOneUser(email);
         if (!user) throw new AppError(404, "User not found", 404);
+        const compare = await bcryptUtils.comparePassword(
+          password,
+          user.password,
+        );
         if (!compare) throw new AppError(400, "Incorrect password", 400);
 
         const token = jwtToken(user);
         return done(null, token);
       } catch (err) {
         logger.error(err);
-        done(err, null);
+        return done(null, err);
       }
     },
   ),
