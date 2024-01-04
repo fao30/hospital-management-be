@@ -29,6 +29,7 @@ module.exports = {
       },
       hospital_id: {
         type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
           model: {
             tableName: "Hospitals",

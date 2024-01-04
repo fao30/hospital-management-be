@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       hospital_id: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         references: {
           model: {
             tableName: "Hospitals",
