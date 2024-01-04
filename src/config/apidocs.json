@@ -1006,6 +1006,22 @@
 				  "description": "how many meds in stock",
 				  "enum": [15],
 				  "examples": 15	
+				},
+				"expiry_date": {
+				  "type": "date",
+				  "description": "expiry date of the medicine"
+				},
+				"is_patient_discharged": {
+				  "type": "boolean",
+				  "description": "is the patient discharged",
+				  "enum": [true],
+				  "examples": true	
+				},
+				"manufacturer": {
+				  "type": "integer",
+				  "description": "how many meds in stock",
+				  "enum": [15],
+				  "examples": 15	
 				}
 			  }
 			},
