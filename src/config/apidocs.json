@@ -11,14 +11,6 @@
 			"description": "development"
 		}
 	],
-	"components": {
-		"securitySchemes": {
-			"bearer": {
-				"type": "http",
-				"scheme": "bearer"
-			}
-		}
-	},
 	"tags": [
 		{
 			"name": "Register and Login",
@@ -31,6 +23,10 @@
 		{
 			"name": "Countries",
 			"description": "API for Countries"
+		},
+		{
+			"name": "Hospitals",
+			"description": "API for Hospitals"
 		},
 		{
 			"name": "Payment-Statuses",
@@ -51,42 +47,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"type": "object",
-								"properties": {
-									"last_name": {
-										"type": "string"
-									},
-									"first_name": {
-										"type": "string"
-									},
-									"date_of_birth": {
-										"type": "string"
-									},
-									"email": {
-										"type": "string"
-									},
-									"password": {
-										"type": "string"
-									},
-									"phone_number": {
-										"type": "string"
-									},
-									"gender": {
-										"type": "string",
-										"enum": ["FEMALE", "MALE"]									
-									},
-									"country_id": {
-										"type": "integer",
-										"description": "1: Indonesia, 2: Malaysia"
-									},
-									"role_id": {
-										"type": "integer",
-										"description": "1: Superadmin, 2: Hospital Manager, 3: Hospital Admin"
-									},
-									"hospital_id": {
-										"type": "integer"
-									}
-								}
+								"$ref": "#/components/schemas/UserInput"
 							}
 						}
 					}
@@ -210,6 +171,138 @@
                 }
 			}
 		},
+		"/api/hospitals": {
+			"get": {
+				"tags": ["Hospitals"],
+				"summary": "Get all of Hospitals",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new hospitals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospital"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HospitalInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/hospitals/{id}": {
+            "get": {
+                "tags": ["hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get order by id for hospitals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospitals"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for hospitals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospital"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HospitalInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
 		"/api/paymentStatuses": {
 			"get": {
 				"tags": ["Payment-Statuses"],
@@ -230,6 +323,79 @@
                         "description": "Not found"
                     }
                 }
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"bearer": {
+				"type": "http",
+				"scheme": "bearer"
+			}
+		},
+		"schemas": {
+			"HospitalInput": {
+			  "type": "object",
+			  "properties": {
+				"name": {
+				  "type": "string",
+				  "description": "Name for hospital"
+				},
+				"address": {
+				  "type": "string",
+				  "description": "Address for hospital"
+				},
+				"phone_number": {
+				  "type": "string",
+				  "description": "Phone Number for hospital"
+				},
+				"is_active": {
+				  "type": "boolean",
+				  "description": "is hospital active"
+				},
+				"max_users": {
+				  "type": "integer",
+				  "description": "max user or account of the hospital"
+				}
+			  }
+			},
+			"UserInput": {
+				"type": "object",
+				"properties": {
+					"last_name": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"date_of_birth": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"phone_number": {
+						"type": "string"
+					},
+					"gender": {
+						"type": "string",
+						"enum": ["FEMALE", "MALE"]									
+					},
+					"country_id": {
+						"type": "integer",
+						"description": "1: Indonesia, 2: Malaysia"
+					},
+					"role_id": {
+						"type": "integer",
+						"description": "1: Superadmin, 2: Hospital Manager, 3: Hospital Admin"
+					},
+					"hospital_id": {
+						"type": "integer"
+					}
+				}
 			}
 		}
 	}

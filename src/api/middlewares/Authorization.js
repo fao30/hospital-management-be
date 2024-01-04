@@ -71,31 +71,32 @@ const authPublic = (req) => {
 //   }
 // };
 
-// const isSuperAdmin = async (req, res, next) => {
-//   try {
-//     const { id, email, role, error } = auth(req);
-//     if (!id) throw new AppError(401, "Token decode error", 401);
+const isSuperAdmin = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error } = authPublic(req);
 
-//     const query = {
-//       id,
-//       email,
-//     };
-//     const user = await userService.findUserQuery(query);
+    if (!id) throw new AppError(401, "Token decode error", 401);
 
-//     if (!user) throw new AppError(404, "User not found", 404);
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
 
-//     if (role !== SUPER_ADMIN) throw new AppError(401, "Unauthorized", 401);
+    if (!user) throw new AppError(404, "User not found", 404);
 
-//     if (error) throw new AppError(400, "There is no token found", 400);
+    if (role_id !== SUPER_ADMIN) throw new AppError(401, "Unauthorized", 401);
 
-//     next();
-//   } catch (error) {
-//     logger.error(error);
-//     return res
-//       .status(error.errorCode || 500)
-//       .json({ error: true, message: error.message });
-//   }
-// };
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
 
 // const isAuthorized = async (req, res, next) => {
 //   try {
@@ -150,5 +151,5 @@ const getJwtToken = async (req, res, next) => {
   }
 };
 
-module.exports = { getJwtToken };
+module.exports = { getJwtToken, isSuperAdmin };
 // module.exports = { isAdmin, isSuperAdmin, isAuthorized, auth, getJwtToken };
