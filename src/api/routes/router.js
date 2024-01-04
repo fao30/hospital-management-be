@@ -4,6 +4,7 @@ const CountriesRoutes = require("./listRoutes/countriesRoutes");
 const HospitalsRoutes = require("./listRoutes/hospitalsRoutes");
 const VisitsRoutes = require("./listRoutes/visitsRoutes");
 const TreatmentsRoutes = require("./listRoutes/treatmentsRoutes");
+const MedicinesRoutes = require("./listRoutes/medicinesRoutes");
 const PaymentStatusesRoutes = require("./listRoutes/paymentStatusesRoutes");
 const LoginRoutes = require("./registerLogin/LoginRouter");
 const RegisterRoutes = require("./registerLogin/RegisterRouter");
@@ -20,6 +21,7 @@ router.use("/api/countries", CountriesRoutes);
 router.use("/api/hospitals", isSuperAdmin, HospitalsRoutes);
 router.use("/api/visits", isAdminOrManager, VisitsRoutes);
 router.use("/api/treatments", TreatmentsRoutes);
+router.use("/api/medicines", MedicinesRoutes);
 router.use("/api/paymentStatuses", PaymentStatusesRoutes);
 
 router.get("/", (req, res) => {
