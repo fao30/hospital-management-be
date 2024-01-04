@@ -21,10 +21,6 @@ module.exports = {
       medicines_treatment: {
         type: Sequelize.TEXT,
       },
-      amount: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
       quantity: {
         type: Sequelize.INTEGER,
         defaultValue: 0,

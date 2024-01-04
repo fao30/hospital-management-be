@@ -38,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       article_number: {
         type: DataTypes.STRING,
       },
+      name: {
+        type: DataTypes.STRING,
+      },
       currency: {
         type: DataTypes.STRING,
         defaultValue: "RP",
