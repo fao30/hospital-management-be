@@ -46,7 +46,7 @@ const authPublic = (req) => {
 
 const isAdminOrManager = async (req, res, next) => {
   try {
-    const { id, email, role_id, error } = authPublic(req);
+    const { id, email, role_id, error, hospital_id } = authPublic(req);
     if (!id) throw new AppError(401, "Token data is expired");
 
     const query = {
@@ -67,6 +67,13 @@ const isAdminOrManager = async (req, res, next) => {
     }
 
     if (error) throw new AppError(400, "There is no token found", 400);
+
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
 
     next();
   } catch (error) {

@@ -33,9 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       medical_treatment: {
         type: DataTypes.TEXT,
       },
-      name: {
-        type: DataTypes.STRING,
-      },
       currency: {
         type: DataTypes.STRING,
         defaultValue: "RP",

@@ -20,7 +20,7 @@ class visitsController {
   }
 
   static async getAllVisits(req, res) {
-    const visits = await VisitsService.findAllVisits();
+    const visits = await VisitsService.findAllVisits(req);
 
     if (!visits.length) {
       throw new AppError(NO_CONTENT, "visits not found", 400);

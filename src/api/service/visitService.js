@@ -1,19 +1,45 @@
-const { Visits, Sequelize } = require("../models");
+const { SUPER_ADMIN } = require("../constants/roles.const");
+const {
+  Treatments,
+  Medicines_Treatments,
+  Visits,
+  Sequelize,
+} = require("../models");
 
 class VisitsService {
   static async createVisit(query) {
     return Visits.create(query);
   }
 
-  static async findAllVisits() {
+  static async findAllVisits(req) {
+    const { hospital_id, role_id } = req.headers;
+    let where = {};
+
+    if (role_id !== SUPER_ADMIN) {
+      where.hospital_id = hospital_id;
+    }
+
     return Visits.findAll({
-      where: {
-        // id: { [Sequelize.Op.not]: 1 },
-      },
+      where,
       attributes: {
-        // exclude: ["createdAt", "updatedAt"],
         exclude: ["createdAt", "updatedAt"],
       },
+      include: [
+        {
+          model: Treatments,
+          order: [["createdAt", "DESC"]],
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Medicines_Treatments,
+          order: [["createdAt", "DESC"]],
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
     });
   }
 
@@ -23,6 +49,22 @@ class VisitsService {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
+      include: [
+        {
+          model: Treatments,
+          order: [["createdAt", "DESC"]],
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Medicines_Treatments,
+          order: [["createdAt", "DESC"]],
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
     });
   }
 
