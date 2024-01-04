@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       Visits.hasMany(models.Medicines_Treatments, { foreignKey: "visit_id" });
       Visits.belongsTo(models.Hospitals, { foreignKey: "hospital_id" });
       Visits.belongsTo(models.Users, { foreignKey: "patient_id" });
-      Visits.belongsTo(models.Payment_Statuses, { foreignKey: "status_id" });
+      Visits.belongsTo(models.Payment_Statuses, {
+        foreignKey: "payment_status_id",
+      });
       Visits.hasMany(models.Files, { foreignKey: "visit_id" });
     }
   }
@@ -34,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      status_id: {
+      payment_status_id: {
         type: DataTypes.INTEGER,
         references: {
           model: {
@@ -94,6 +96,10 @@ module.exports = (sequelize, DataTypes) => {
       case_notes: {
         allowNull: true,
         type: DataTypes.TEXT,
+      },
+      is_patient_discharged: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

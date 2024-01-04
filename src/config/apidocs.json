@@ -895,7 +895,7 @@
 			"VisitsInput": {
 			  "type": "object",
 			  "properties": {
-				"status_id": {
+				"payment_status_id": {
 					"type": "integer",
 					"description": "Status Payment",
 					"enum": [1,2, 3],

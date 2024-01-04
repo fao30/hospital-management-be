@@ -13,7 +13,7 @@ module.exports = {
       {
         id: 1,
         patient_id: 5,
-        status_id: 3,
+        payment_status_id: 3,
         hospital_id: 1,
         date_start: new Date(),
         weight: 80,
@@ -21,6 +21,7 @@ module.exports = {
         temperature: 37.5,
         blood_presure: 180,
         diagnosis: "Flu",
+        is_patient_discharged: false,
         case_notes: "Flu with temperature",
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -48,7 +48,7 @@ class visitsController {
       throw new AppError(NOT_FOUND, "Visit not found to update", 400);
     }
 
-    oldVisit.status_id = status_id;
+    oldVisit.payment_status_id = payment_status_id;
     oldVisit.patient_id = patient_id;
     oldVisit.hospital_id = hospital_id;
     oldVisit.due_amount = due_amount;
@@ -61,6 +61,7 @@ class visitsController {
     oldVisit.blood_presure = blood_presure;
     oldVisit.diagnosis = diagnosis;
     oldVisit.case_notes = case_notes;
+    oldVisit.is_patient_discharged = is_patient_discharged;
 
     const newVisit = oldVisit.save();
 

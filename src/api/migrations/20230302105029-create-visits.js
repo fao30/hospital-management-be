@@ -18,7 +18,7 @@ module.exports = {
           key: "id",
         },
       },
-      status_id: {
+      payment_status_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -74,6 +74,10 @@ module.exports = {
       },
       blood_presure: {
         type: Sequelize.DECIMAL,
+      },
+      is_patient_discharged: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       diagnosis: {
         type: Sequelize.TEXT,
