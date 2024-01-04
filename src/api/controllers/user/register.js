@@ -11,7 +11,14 @@ const register = async (req, res) => {
   try {
     if (result instanceof AppError) throw new AppError(400, result, 400);
     if (!result) throw new AppError(400, "Signup failed", 400);
-    response.success({ user: result });
+    response.success({
+      user: {
+        id: result?.id,
+        first_name: result?.first_name,
+        last_name: result?.last_name,
+        email: result?.email,
+      },
+    });
   } catch (err) {
     logger.error(err);
     response.error({ error: result, message: result.message }, 400);
