@@ -3,7 +3,16 @@ const { Hospitals, Sequelize } = require("../models");
 class HospitalsService {
   static async createHospital(query) {
     return Hospitals.create(query, {
-      attributes: { exclude: ["hospital_id"] },
+      returning: [
+        "id",
+        "name",
+        "address",
+        "phone_number",
+        "is_active",
+        "max_users",
+        "createdAt",
+        "updatedAt",
+      ],
     });
   }
 
