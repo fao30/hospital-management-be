@@ -29,6 +29,10 @@
 			"description": "API for Hospitals"
 		},
 		{
+			"name": "Visits",
+			"description": "API for Visits"
+		},
+		{
 			"name": "Payment-Statuses",
 			"description": "API for Payment-Statuses"
 		}
@@ -222,6 +226,128 @@
                 }
             }
 		},
+		"/api/visits": {
+			"get": {
+				"tags": ["Visits"],
+				"summary": "Get all of Visits",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Visit",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VisitsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/visits/{id}": {
+            "get": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get visit by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Visits"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Visits",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospital"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VisitsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
 		"/api/hospitals/{id}": {
             "get": {
                 "tags": ["Hospitals"],
@@ -324,6 +450,90 @@
 			}
 		},
 		"schemas": {
+			"VisitsInput": {
+			  "type": "object",
+			  "properties": {
+				"status_id": {
+					"type": "integer",
+					"description": "Status Payment",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3],
+					"example": "1: Full Paid, 2: Partially Paid, 3: Unpaid"
+				},
+				"patient_id": {
+					"type": "integer",
+					"description": "Patient Id",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"hospital_id": {
+					"type": "integer",
+					"description": "Hospital Id",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"due_amount": {
+					"type": ["integer", "null"],
+					"description": "amount need to be paid ALLOWED NULL",
+					"enum": [120000,"null"],
+					"examples": [120000,"null"]	},
+				"paid_amount": {
+					"type": ["integer", "null"],
+					"description": "amount paid ALLOWED NULL",
+					"enum": [120000,"null"],
+					"examples": [120000,"null"]
+				},
+				"date_start": {
+					"type": ["date", "null"],
+					"description": "date when patient comes",
+					"enum": ["09-09-2023"],
+					"examples": "09-09-2023"		
+				},
+				"date_end": {
+					"type": ["date", "null"],
+					"description": "date when patient comes",
+					"enum": ["10-10-2023"],
+					"examples": "10-10-2023"		
+				},
+				"weight": {
+					"type": ["number"],
+					"description": "weight of the patient",
+					"enum": [70],
+					"examples": 70	
+				},
+				"height": {
+					"type": ["number", "null"],
+					"description": "weight of the patient",
+					"enum": [180],
+					"examples": 180	
+				},
+				"temperature": {
+					"type": ["number", "null"],
+					"description": "temperature of the patient",
+					"enum": [38.2],
+					"examples": 38.2	
+				},
+				"blood_presure": {
+					"type": ["number", "null"],
+					"description": "temperature of the patient",
+					"enum": [70.2],
+					"examples": 70.2	
+				},
+				"diagnosis": {
+					"type": ["string", "null"],
+					"description": "diagnosis of the patient",
+					"enum": ["Flu"],
+					"examples": "Flu"	
+
+				},
+				"case_notes": {
+					"type": ["string"],
+					"description": "case_notes of the patient",
+					"enum": ["Flu with cought"],
+					"examples": "Flu with cought"	
+				}
+			  }
+			},
 			"HospitalInput": {
 			  "type": "object",
 			  "properties": {
@@ -345,7 +555,7 @@
 				},
 				"max_users": {
 				  "type": "integer",
-				  "description": "max user or account of the hospital"
+				  "description": "max user or account of the hospital"			
 				}
 			  }
 			},

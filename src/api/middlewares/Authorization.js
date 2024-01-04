@@ -44,32 +44,38 @@ const authPublic = (req) => {
   }
 };
 
-// const isAdmin = async (req, res, next) => {
-//   try {
-//     const { id, email, role, error } = auth(req);
-//     if (!id) throw new AppError(401, "Token data is expired");
+const isAdminOrManager = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
 
-//     const query = {
-//       id,
-//       email,
-//     };
-//     const user = await userService.findUserQuery(query);
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
 
-//     if (!user) throw new AppError(404, "User not found", 404);
+    if (!user) throw new AppError(404, "User not found", 404);
 
-//     if (role !== ADMIN && role !== SUPER_ADMIN)
-//       throw new AppError(401, "Unauthorized", 401);
+    if (
+      role_id !== MANAGER_HOSPITAL &&
+      role_id !== SUPER_ADMIN &&
+      role_id !== ADMIN_HOSPITAL
+    ) {
+      //IF ROLE IS NOT ADMIN HOSPITAL, SUPER ADMIN, OR MANAGER HOSPITAL
+      throw new AppError(401, "Unauthorized", 401);
+    }
 
-//     if (error) throw new AppError(400, "There is no token found", 400);
+    if (error) throw new AppError(400, "There is no token found", 400);
 
-//     next();
-//   } catch (error) {
-//     logger.error(error);
-//     return res
-//       .status(error.errorCode || 500)
-//       .json({ error: true, message: error.message });
-//   }
-// };
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
 
 const isSuperAdmin = async (req, res, next) => {
   try {
@@ -151,5 +157,5 @@ const getJwtToken = async (req, res, next) => {
   }
 };
 
-module.exports = { getJwtToken, isSuperAdmin };
+module.exports = { getJwtToken, isSuperAdmin, isAdminOrManager };
 // module.exports = { isAdmin, isSuperAdmin, isAuthorized, auth, getJwtToken };

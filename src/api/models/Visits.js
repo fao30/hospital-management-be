@@ -54,9 +54,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       due_amount: {
+        allowNull: true,
         type: DataTypes.INTEGER,
       },
       paid_amount: {
+        allowNull: true,
         type: DataTypes.INTEGER,
       },
       date_start: {
@@ -68,6 +70,30 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.DATE,
         defaultValue: new Date(),
+      },
+      weight: {
+        allowNull: true,
+        type: DataTypes.DECIMAL,
+      },
+      height: {
+        allowNull: true,
+        type: DataTypes.DECIMAL,
+      },
+      temperature: {
+        allowNull: true,
+        type: DataTypes.DECIMAL,
+      },
+      blood_presure: {
+        allowNull: true,
+        type: DataTypes.DECIMAL,
+      },
+      diagnosis: {
+        allowNull: true,
+        type: DataTypes.TEXT,
+      },
+      case_notes: {
+        allowNull: true,
+        type: DataTypes.TEXT,
       },
     },
     {
