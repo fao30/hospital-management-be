@@ -193,23 +193,13 @@
                 }
 			},
 			"post": {
-                "tags": ["hospitals"],
+                "tags": ["Hospitals"],
                 "security": [
                     {
                         "bearer": []
                     }
                 ],
                 "summary": "Add new hospitals",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "description": "id of hospital"
-                    }
-                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -234,7 +224,7 @@
 		},
 		"/api/hospitals/{id}": {
             "get": {
-                "tags": ["hospitals"],
+                "tags": ["Hospitals"],
                 "security": [
                     {
                         "bearer": []
@@ -264,7 +254,7 @@
                 }
             },
             "put": {
-                "tags": ["hospitals"],
+                "tags": ["Hospitals"],
                 "security": [
                     {
                         "bearer": []
