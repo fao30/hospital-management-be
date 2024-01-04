@@ -13,7 +13,7 @@ module.exports = {
       {
         id: 1,
         patient_id: 5,
-        status_id: 3,
+        payment_status_id: 3,
         hospital_id: 1,
         date_start: new Date(),
         weight: 80,

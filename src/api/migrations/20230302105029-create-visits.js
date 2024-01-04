@@ -18,7 +18,7 @@ module.exports = {
           key: "id",
         },
       },
-      status_id: {
+      payment_status_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
