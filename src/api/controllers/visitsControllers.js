@@ -61,6 +61,7 @@ class visitsController {
     oldVisit.blood_presure = blood_presure;
     oldVisit.diagnosis = diagnosis;
     oldVisit.case_notes = case_notes;
+    oldVisit.is_patient_discharged = is_patient_discharged;
 
     const newVisit = oldVisit.save();
 

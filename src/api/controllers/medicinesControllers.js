@@ -61,6 +61,8 @@ class medicineController {
     oldMedicines.currency = currency;
     oldMedicines.price = price;
     oldMedicines.in_stock = in_stock;
+    oldMedicines.manufacturer = manufacturer;
+    oldMedicines.expiry_date = expiry_date;
 
     const newMedicines = oldMedicines.save();
 
