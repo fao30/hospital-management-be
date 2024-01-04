@@ -37,6 +37,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },
+      manufacturer: {
+        type: Sequelize.STRING,
+        defaultValue: "-",
+      },
+      expiry_date: {
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: new Date(),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

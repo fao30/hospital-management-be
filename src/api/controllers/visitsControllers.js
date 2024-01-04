@@ -48,7 +48,7 @@ class visitsController {
       throw new AppError(NOT_FOUND, "Visit not found to update", 400);
     }
 
-    oldVisit.status_id = status_id;
+    oldVisit.payment_status_id = payment_status_id;
     oldVisit.patient_id = patient_id;
     oldVisit.hospital_id = hospital_id;
     oldVisit.due_amount = due_amount;

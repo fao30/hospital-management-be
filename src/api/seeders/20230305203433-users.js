@@ -22,6 +22,8 @@ module.exports = {
         country_id: 1,
         role_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -38,6 +40,8 @@ module.exports = {
         role_id: 2,
         hospital_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -54,6 +58,8 @@ module.exports = {
         role_id: 2,
         hospital_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -70,6 +76,8 @@ module.exports = {
         role_id: 4,
         hospital_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -86,6 +94,8 @@ module.exports = {
         role_id: 5,
         hospital_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -102,6 +112,8 @@ module.exports = {
         role_id: 6,
         hospital_id: 1,
         is_active: true,
+        is_on_duty: false,
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },

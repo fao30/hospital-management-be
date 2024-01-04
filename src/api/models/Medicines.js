@@ -53,6 +53,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      manufacturer: {
+        type: DataTypes.STRING,
+        defaultValue: "-",
+      },
+      expiry_date: {
+        allowNull: true,
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,

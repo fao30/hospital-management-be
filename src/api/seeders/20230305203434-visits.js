@@ -21,6 +21,7 @@ module.exports = {
         temperature: 37.5,
         blood_presure: 180,
         diagnosis: "Flu",
+        is_patient_discharged: false,
         case_notes: "Flu with temperature",
         createdAt: new Date(),
         updatedAt: new Date(),
