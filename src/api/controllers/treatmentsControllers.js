@@ -11,7 +11,6 @@ const {
 class treatmentController {
   static async createTreatment(req, res) {
     const { role_id } = req.headers;
-    console.log(req.user, "<<<======req.user");
 
     const treatment = await TreatmentService.createTreatment({
       ...req.body,
