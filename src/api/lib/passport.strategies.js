@@ -18,8 +18,8 @@ passport.use(
 
     async (req, email, password, done) => {
       return await signup(req.body, done);
-    },
-  ),
+    }
+  )
 );
 
 passport.use(
@@ -37,18 +37,23 @@ passport.use(
         if (!user) throw new AppError(404, "User not found", 404);
         const compare = await bcryptUtils.comparePassword(
           password,
-          user.password,
+          user.password
         );
+
         if (!compare) throw new AppError(400, "Incorrect password", 400);
 
         const token = jwtToken(user);
-        return done(null, token);
+        return done(null, {
+          token: token,
+          id: user?.id,
+          role_id: user?.role_id,
+        });
       } catch (err) {
         logger.error(err);
         return done(null, err);
       }
-    },
-  ),
+    }
+  )
 );
 
 module.exports = passport;

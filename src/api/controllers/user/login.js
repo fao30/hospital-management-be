@@ -11,7 +11,7 @@ const login = async (req, res) => {
   try {
     if (result instanceof AppError) throw new AppError(404, result, 400);
     if (!result) throw new AppError(400, "Cannot login", 400);
-    response.success({ token: result });
+    response.success(result);
   } catch (err) {
     logger.error(err);
     response.error({ error: err, message: result.message }, err.errorCode);
