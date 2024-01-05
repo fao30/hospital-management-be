@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       medicines_treatment: {
         type: DataTypes.TEXT,
       },
-      amount: {
+      quantity: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },

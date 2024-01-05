@@ -11,14 +11,6 @@
 			"description": "development"
 		}
 	],
-	"components": {
-		"securitySchemes": {
-			"bearer": {
-				"type": "http",
-				"scheme": "bearer"
-			}
-		}
-	},
 	"tags": [
 		{
 			"name": "Register and Login",
@@ -31,6 +23,26 @@
 		{
 			"name": "Countries",
 			"description": "API for Countries"
+		},
+		{
+			"name": "Hospitals",
+			"description": "API for Hospitals"
+		},
+		{
+			"name": "Visits",
+			"description": "API for Visits"
+		},
+		{
+			"name": "Treatments",
+			"description": "API for Treatments"
+		},
+		{
+			"name": "Medicines",
+			"description": "API for Medicines"
+		},
+		{
+			"name": "Medicine-Treatments",
+			"description": "API for Medicine Treatments"
 		},
 		{
 			"name": "Payment-Statuses",
@@ -51,42 +63,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"type": "object",
-								"properties": {
-									"last_name": {
-										"type": "string"
-									},
-									"first_name": {
-										"type": "string"
-									},
-									"date_of_birth": {
-										"type": "string"
-									},
-									"email": {
-										"type": "string"
-									},
-									"password": {
-										"type": "string"
-									},
-									"phone_number": {
-										"type": "string"
-									},
-									"gender": {
-										"type": "string",
-										"enum": ["FEMALE", "MALE"]									
-									},
-									"country_id": {
-										"type": "integer",
-										"description": "1: Indonesia, 2: Malaysia"
-									},
-									"role_id": {
-										"type": "integer",
-										"description": "1: Superadmin, 2: Hospital Manager, 3: Hospital Admin"
-									},
-									"hospital_id": {
-										"type": "integer"
-									}
-								}
+								"$ref": "#/components/schemas/UserInput"
 							}
 						}
 					}
@@ -210,6 +187,616 @@
                 }
 			}
 		},
+		"/api/medicines": {
+			"get": {
+				"tags": ["Medicines"],
+				"summary": "Get all of Medicines",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Medicines",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicinesInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/hospitals": {
+			"get": {
+				"tags": ["Hospitals"],
+				"summary": "Get all of Hospitals",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new hospitals",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HospitalInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/visits": {
+			"get": {
+				"tags": ["Visits"],
+				"summary": "Get all of Visits",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Visit",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VisitsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/treatments": {
+			"get": {
+				"tags": ["Treatments"],
+				"summary": "DEV: Get all Treatments, if not super admin, then the user only can see treatments inside the hospital",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Treatment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/medicine-treatments": {
+			"get": {
+				"tags": ["Medicine-Treatments"],
+				"summary": "DEV: Get all Medicine-Treatments, only superadmin, manegerial level in hospital and doctor can see",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Medicine-Treatments",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicineTreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/medicines/{id}": {
+            "get": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Medicine by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of medicine"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Medicines"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Medicines",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of medicine"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicinesInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+		"/api/treatments/{id}": {
+            "get": {
+                "tags": ["Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Treatment by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Treatments"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Treatments",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Treatments"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+		"/api/medicine-treatments/{id}": {
+            "get": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Treatment by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Medicine-Treatments"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Medicine-Treatments"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Medicine-Treatments",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Medicine-Treatments"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MedicineTreatmentsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+		"/api/visits/{id}": {
+            "get": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get visit by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of Visits"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Visits"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Visits",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospital"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VisitsInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+		"/api/hospitals/{id}": {
+            "get": {
+                "tags": ["Hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get order by id for hospitals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospitals"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Hospitals"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for hospitals",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of hospital"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/HospitalInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
 		"/api/paymentStatuses": {
 			"get": {
 				"tags": ["Payment-Statuses"],
@@ -230,6 +817,276 @@
                         "description": "Not found"
                     }
                 }
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"bearer": {
+				"type": "http",
+				"scheme": "bearer"
+			}
+		},
+		"schemas": {
+			"MedicineTreatmentsInput": {
+			  "type": "object",
+			  "properties": {
+				"medicine_id": {
+					"type": "integer",
+					"description": "Id of the medicine",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"medicines_treatment": {
+					"type": "string",
+					"description": "Description about the dosis of the medicine",
+					"enum": ["Paracetamol"],
+					"examples": ["Paracetamol"]
+				},
+				"quantity": {
+					"type": "integer",
+					"description": "quantity of medicine given",
+					"enum": [2],
+					"examples": [2]
+				},
+				"visit_id": {
+					"type": "integer",
+					"description": "id of the visit",
+					"enum": [1],
+					"examples": [1]
+				}
+			  }
+			},
+			"TreatmentsInput": {
+			  "type": "object",
+			  "properties": {
+				"doctor_id": {
+					"type": "integer",
+					"description": "Id of the doctor",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"visit_id": {
+					"type": "integer",
+					"description": "Id of the visit",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"medical_treatment": {
+					"type": "string",
+					"description": "What medical treatment was given",
+					"enum": ["X-ray was done"],
+					"examples": ["X-ray was done"]
+				},
+				"currency": {
+					"type": "string",
+					"description": "DEV: this is for hospital admin",
+					"enum": ["RP"],
+					"examples": ["RP"]
+				},
+				"price": {
+					"type": ["integer", "null"],
+					"description": "DEV: this is for hospital admin",
+					"enum": [120000],
+					"examples": [120000]	
+				}
+			  }
+			},
+			"VisitsInput": {
+			  "type": "object",
+			  "properties": {
+				"payment_status_id": {
+					"type": "integer",
+					"description": "Status Payment",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3],
+					"example": "1: Full Paid, 2: Partially Paid, 3: Unpaid"
+				},
+				"patient_id": {
+					"type": "integer",
+					"description": "Patient Id",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"hospital_id": {
+					"type": "integer",
+					"description": "Hospital Id",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"due_amount": {
+					"type": ["integer", "null"],
+					"description": "amount need to be paid ALLOWED NULL",
+					"enum": [120000,"null"],
+					"examples": [120000,"null"]	},
+				"paid_amount": {
+					"type": ["integer", "null"],
+					"description": "amount paid ALLOWED NULL",
+					"enum": [120000,"null"],
+					"examples": [120000,"null"]
+				},
+				"date_start": {
+					"type": ["date", "null"],
+					"description": "date when patient comes",
+					"enum": ["09-09-2023"],
+					"examples": "09-09-2023"		
+				},
+				"date_end": {
+					"type": ["date", "null"],
+					"description": "date when patient comes",
+					"enum": ["10-10-2023"],
+					"examples": "10-10-2023"		
+				},
+				"weight": {
+					"type": ["number"],
+					"description": "weight of the patient",
+					"enum": [70],
+					"examples": 70	
+				},
+				"height": {
+					"type": ["number", "null"],
+					"description": "weight of the patient",
+					"enum": [180],
+					"examples": 180	
+				},
+				"temperature": {
+					"type": ["number", "null"],
+					"description": "temperature of the patient",
+					"enum": [38.2],
+					"examples": 38.2	
+				},
+				"blood_presure": {
+					"type": ["number", "null"],
+					"description": "temperature of the patient",
+					"enum": [70.2],
+					"examples": 70.2	
+				},
+				"diagnosis": {
+					"type": ["string", "null"],
+					"description": "diagnosis of the patient",
+					"enum": ["Flu"],
+					"examples": "Flu"	
+
+				},
+				"case_notes": {
+					"type": ["string"],
+					"description": "case_notes of the patient",
+					"enum": ["Flu with cought"],
+					"examples": "Flu with cought"	
+				}
+			  }
+			},
+			"MedicinesInput": {
+			  "type": "object",
+			  "properties": {
+				"hospital_id": {
+				  "type": "integer",
+				  "description": "Id of the hospital"
+				},
+				"article_number": {
+				  "type": "string",
+				  "description": "article_number of the medicine",
+				  "enum": ["XII-2021-02-30"],
+				  "examples": "XII-2021-02-30"	
+				},
+				"currency": {
+				  "type": "string",
+				  "description": "currency of the mdeicine",
+				  "enum": ["RP"],
+				  "examples": "RP"	
+				},
+				"price": {
+				  "type": "integer",
+				  "description": "price of the mdeicine",
+				  "enum": [150000],
+				  "examples": 150000	
+				},
+				"in_stock": {
+				  "type": "integer",
+				  "description": "how many meds in stock",
+				  "enum": [15],
+				  "examples": 15	
+				},
+				"expiry_date": {
+				  "type": "date",
+				  "description": "expiry date of the medicine"
+				},
+				"is_patient_discharged": {
+				  "type": "boolean",
+				  "description": "is the patient discharged",
+				  "enum": [true],
+				  "examples": true	
+				},
+				"manufacturer": {
+				  "type": "integer",
+				  "description": "how many meds in stock",
+				  "enum": [15],
+				  "examples": 15	
+				}
+			  }
+			},
+			"HospitalInput": {
+			  "type": "object",
+			  "properties": {
+				"name": {
+				  "type": "string",
+				  "description": "Name for hospital"
+				},
+				"address": {
+				  "type": "string",
+				  "description": "Address for hospital"
+				},
+				"phone_number": {
+				  "type": "string",
+				  "description": "Phone Number for hospital"
+				},
+				"is_active": {
+				  "type": "boolean",
+				  "description": "is hospital active"
+				},
+				"max_users": {
+				  "type": "integer",
+				  "description": "max user or account of the hospital"			
+				}
+			  }
+			},
+			"UserInput": {
+				"type": "object",
+				"properties": {
+					"last_name": {
+						"type": "string"
+					},
+					"first_name": {
+						"type": "string"
+					},
+					"date_of_birth": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"phone_number": {
+						"type": "string"
+					},
+					"gender": {
+						"type": "string",
+						"enum": ["FEMALE", "MALE"]									
+					},
+					"country_id": {
+						"type": "integer",
+						"description": "1: Indonesia, 2: Malaysia"
+					},
+					"role_id": {
+						"type": "integer",
+						"description": "1: Superadmin, 2: Hospital Manager, 3: Hospital Admin"
+					},
+					"hospital_id": {
+						"type": "integer"
+					}
+				}
 			}
 		}
 	}

@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       hospital_id: {
         type: DataTypes.INTEGER,
+        allowNull: true,
         references: {
           model: {
             tableName: "Hospitals",
@@ -35,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       article_number: {
+        type: DataTypes.STRING,
+      },
+      name: {
         type: DataTypes.STRING,
       },
       currency: {
@@ -48,6 +52,14 @@ module.exports = (sequelize, DataTypes) => {
       in_stock: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
+      },
+      manufacturer: {
+        type: DataTypes.STRING,
+        defaultValue: "-",
+      },
+      expiry_date: {
+        allowNull: true,
+        type: DataTypes.DATE,
       },
     },
     {

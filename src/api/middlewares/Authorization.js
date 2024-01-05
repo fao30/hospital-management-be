@@ -44,58 +44,189 @@ const authPublic = (req) => {
   }
 };
 
-// const isAdmin = async (req, res, next) => {
-//   try {
-//     const { id, email, role, error } = auth(req);
-//     if (!id) throw new AppError(401, "Token data is expired");
+const isAdminOrManager = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error, hospital_id } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
 
-//     const query = {
-//       id,
-//       email,
-//     };
-//     const user = await userService.findUserQuery(query);
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
 
-//     if (!user) throw new AppError(404, "User not found", 404);
+    if (!user) throw new AppError(404, "User not found", 404);
 
-//     if (role !== ADMIN && role !== SUPER_ADMIN)
-//       throw new AppError(401, "Unauthorized", 401);
+    if (
+      role_id !== MANAGER_HOSPITAL &&
+      role_id !== SUPER_ADMIN &&
+      role_id !== ADMIN_HOSPITAL
+    ) {
+      //IF ROLE IS NOT ADMIN HOSPITAL, SUPER ADMIN, OR MANAGER HOSPITAL
+      throw new AppError(401, "Unauthorized", 401);
+    }
 
-//     if (error) throw new AppError(400, "There is no token found", 400);
+    if (error) throw new AppError(400, "There is no token found", 400);
 
-//     next();
-//   } catch (error) {
-//     logger.error(error);
-//     return res
-//       .status(error.errorCode || 500)
-//       .json({ error: true, message: error.message });
-//   }
-// };
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
 
-// const isSuperAdmin = async (req, res, next) => {
-//   try {
-//     const { id, email, role, error } = auth(req);
-//     if (!id) throw new AppError(401, "Token decode error", 401);
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
 
-//     const query = {
-//       id,
-//       email,
-//     };
-//     const user = await userService.findUserQuery(query);
+const isDoctor = async (req, res, next) => {
+  try {
+    const { id, email, role_id, hospital_id, error } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
 
-//     if (!user) throw new AppError(404, "User not found", 404);
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
 
-//     if (role !== SUPER_ADMIN) throw new AppError(401, "Unauthorized", 401);
+    if (!user) throw new AppError(404, "User not found", 404);
 
-//     if (error) throw new AppError(400, "There is no token found", 400);
+    if (role_id !== DOCTOR && role_id !== SUPER_ADMIN) {
+      //IF ROLE IS NOT DOCTOR, SUPER ADMIN
+      throw new AppError(401, "Unauthorized", 401);
+    }
 
-//     next();
-//   } catch (error) {
-//     logger.error(error);
-//     return res
-//       .status(error.errorCode || 500)
-//       .json({ error: true, message: error.message });
-//   }
-// };
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
+
+const isDoctorOrAdminOrManager = async (req, res, next) => {
+  try {
+    const { id, email, role_id, hospital_id, error } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
+
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
+
+    if (!user) throw new AppError(404, "User not found", 404);
+
+    if (
+      role_id !== DOCTOR &&
+      role_id !== MANAGER_HOSPITAL &&
+      role_id !== SUPER_ADMIN &&
+      role_id !== ADMIN_HOSPITAL
+    ) {
+      //IF ROLE IS NOT DOCTOR, SUPER ADMIN, ADMIN HOSPITAL, MANAGER HOSPITAL
+      throw new AppError(401, "Unauthorized", 401);
+    }
+
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
+
+const isPharmacistOrAdminOrManager = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error, hospital_id } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
+
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
+
+    if (!user) throw new AppError(404, "User not found", 404);
+    if (
+      role_id !== PHARMACIST &&
+      role_id !== MANAGER_HOSPITAL &&
+      role_id !== SUPER_ADMIN &&
+      role_id !== ADMIN_HOSPITAL
+    ) {
+      //IF ROLE IS NOT PHARMACIST, SUPER ADMIN, ADMIN HOSPITAL, MANAGER HOSPITAL
+      throw new AppError(401, "Unauthorized", 401);
+    }
+
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
+
+const isSuperAdmin = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error } = authPublic(req);
+
+    if (!id) throw new AppError(401, "Token decode error", 401);
+
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
+
+    if (!user) throw new AppError(404, "User not found", 404);
+
+    if (role_id !== SUPER_ADMIN) throw new AppError(401, "Unauthorized", 401);
+
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
 
 // const isAuthorized = async (req, res, next) => {
 //   try {
@@ -150,5 +281,11 @@ const getJwtToken = async (req, res, next) => {
   }
 };
 
-module.exports = { getJwtToken };
-// module.exports = { isAdmin, isSuperAdmin, isAuthorized, auth, getJwtToken };
+module.exports = {
+  getJwtToken,
+  isSuperAdmin,
+  isAdminOrManager,
+  isDoctorOrAdminOrManager,
+  isDoctor,
+  isPharmacistOrAdminOrManager,
+};

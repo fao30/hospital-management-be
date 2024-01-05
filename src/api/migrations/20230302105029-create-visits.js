@@ -13,12 +13,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Roles",
+            tableName: "Users",
           },
           key: "id",
         },
       },
-      status_id: {
+      payment_status_id: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -29,6 +29,7 @@ module.exports = {
       },
       hospital_id: {
         type: Sequelize.INTEGER,
+        allowNull: true,
         references: {
           model: {
             tableName: "Hospitals",
@@ -73,6 +74,10 @@ module.exports = {
       },
       blood_presure: {
         type: Sequelize.DECIMAL,
+      },
+      is_patient_discharged: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       diagnosis: {
         type: Sequelize.TEXT,
