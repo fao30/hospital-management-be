@@ -8,7 +8,9 @@ const jwtToken = (user) => {
     role: user.role_id,
   };
 
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "24h" });
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "24h",
+  });
 };
 
 const decodeToken = (token) => {

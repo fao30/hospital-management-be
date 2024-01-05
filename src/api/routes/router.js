@@ -15,20 +15,15 @@ const {
   isAdminOrManager,
 } = require("../middlewares/Authorization");
 
-router.use("/api/login", LoginRoutes);
-router.use("/api/register", getJwtToken, RegisterRoutes);
-router.use("/api/roles", RolesRoutes);
-router.use("/api/countries", CountriesRoutes);
-router.use("/api/hospitals", isSuperAdmin, HospitalsRoutes);
-router.use("/api/visits", isAdminOrManager, VisitsRoutes);
-router.use("/api/treatments", TreatmentsRoutes);
-router.use("/api/medicines", MedicinesRoutes);
-router.use("/api/medicine-treatments", MedicineTreatmentsRoutes);
-router.use("/api/paymentStatuses", PaymentStatusesRoutes);
-
-router.get("/", (req, res) => {
-  console.log("EEHEHEHEHEHHEE");
-  res.send("Hello, world!");
-});
+router.use("/login", LoginRoutes);
+router.use("/register", getJwtToken, RegisterRoutes);
+router.use("/roles", RolesRoutes);
+router.use("/countries", CountriesRoutes);
+router.use("/hospitals", isSuperAdmin, HospitalsRoutes);
+router.use("/visits", isAdminOrManager, VisitsRoutes);
+router.use("/treatments", TreatmentsRoutes);
+router.use("/medicines", MedicinesRoutes);
+router.use("/medicine-treatments", MedicineTreatmentsRoutes);
+router.use("/paymentStatuses", PaymentStatusesRoutes);
 
 module.exports = router;
