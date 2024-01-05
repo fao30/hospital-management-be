@@ -9,7 +9,9 @@ const jwtToken = (user) => {
     hospital_id: user.role_id || null,
   };
 
-  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1d",
+  });
 };
 
 const decodeToken = (token) => {
