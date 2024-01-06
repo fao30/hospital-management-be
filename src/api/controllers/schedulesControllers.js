@@ -63,7 +63,6 @@ class schedulesController {
     oldSchedule.is_admin_approved = is_admin_approved;
     oldSchedule.is_doctor_approved = is_doctor_approved;
     oldSchedule.date_time = date_time;
-    oldSchedule.is_doctor_approved = is_doctor_approved;
     oldSchedule.status = status;
 
     const newSchedule = oldSchedule.save();

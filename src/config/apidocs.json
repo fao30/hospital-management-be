@@ -41,6 +41,10 @@
 			"description": "API for Medicines"
 		},
 		{
+			"name": "Schedules",
+			"description": "API for Schedules"
+		},
+		{
 			"name": "Medicine-Treatments",
 			"description": "API for Medicine Treatments"
 		},
@@ -442,6 +446,128 @@
                 }
             }
 		},
+		"/api/schedules": {
+			"get": {
+				"tags": ["Schedules"],
+				"summary": "DEV: Get all Schedules, only superadmin, manegerial level in hospital and doctor can see",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+			"post": {
+                "tags": ["Schedules"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Add new Medicine-Treatments",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ScheduleInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+		},
+		"/api/schedules/{id}": {
+            "get": {
+                "tags": ["Schedules"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Get Schedule by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of schedule"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Schedules"],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "summary": "Update detail for Schedule",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "id of medicine"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ScheduleInput"
+							}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
 		"/api/medicines/{id}": {
             "get": {
                 "tags": ["Medicines"],
@@ -828,6 +954,54 @@
 			}
 		},
 		"schemas": {
+			"ScheduleInput": {
+			  "type": "object",
+			  "properties": {
+				"doctor_id": {
+					"type": "integer",
+					"description": "Id of the doctor",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"patient_id": {
+					"type": "integer",
+					"description": "Id of the doctor",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"admin_id": {
+					"type": "integer",
+					"description": "Id of the admin who offer this schedule",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
+				"is_admin_approved": {
+					"type": "boolean",
+					"description": "Is admin approved this schedule if doctor request the schedule",
+					"enum": [false],
+					"examples": [false]
+				},
+			
+				"is_doctor_approved": {
+					"type": "boolean",
+					"description": "Is doctor approved this schedule if admin request the schedule",
+					"enum": [false],
+					"examples": [false]
+				},
+				"date_time": {
+					"type": "date",
+					"description": "date and time of schedule",
+					"enum": [false],
+					"examples": [false]
+				},
+                "status": {
+					"type": "string",
+					"description": "status of schedule",
+					"enum": ["SCHEDULED","CANCELLED"],
+					"examples": ["SCHEDULED","CANCELLED"]
+				}
+			  }
+			},
 			"MedicineTreatmentsInput": {
 			  "type": "object",
 			  "properties": {
