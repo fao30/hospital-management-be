@@ -16,7 +16,10 @@ const findOneUser = async (email) => {
 };
 
 const findUserQuery = async (query) => {
-  return await Users.findAll({ where: query });
+  return await Users.findAll({
+    where: query,
+    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+  });
 };
 
 const findUserAndComparePassword = async (email, password) => {
