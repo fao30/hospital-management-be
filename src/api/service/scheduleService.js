@@ -7,6 +7,8 @@ const {
   Schedules,
   Users,
 } = require("../models");
+const { startOfDay, endOfDay } = require("date-fns");
+const { Op } = require("sequelize");
 
 class SchedulesService {
   static async createSchedule(query) {
@@ -15,8 +17,9 @@ class SchedulesService {
 
   static async findAllSchedules(limit, page, req = null) {
     const { hospital_id = 0, role_id } = req?.headers;
-
     const created_at = req?.query?.created_at;
+    const date_time = req?.query?.date_time || null;
+    const filter_by_date = JSON.parse(req.query.filter_by_date || false);
 
     let order = [["createdAt", "ASC"]];
 
@@ -24,6 +27,15 @@ class SchedulesService {
 
     if (role_id !== SUPER_ADMIN) {
       where.hospital_id = hospital_id;
+    }
+
+    if (filter_by_date) {
+      const startDate = startOfDay(new Date(date_time));
+      const endDate = endOfDay(new Date(date_time));
+
+      where.date_time = {
+        [Op.between]: [startDate, endDate],
+      };
     }
 
     if (created_at) {
