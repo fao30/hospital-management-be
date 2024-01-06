@@ -5,6 +5,7 @@ const {
   Visits,
   Sequelize,
   Schedules,
+  Users,
 } = require("../models");
 
 class SchedulesService {
@@ -12,30 +13,48 @@ class SchedulesService {
     return Schedules.create(query);
   }
 
-  static async findAllSchedules(req) {
-    // const { hospital_id, role_id } = req.headers;
+  static async findAllSchedules(limit, page, req = null) {
+    const { hospital_id = 0, role_id } = req?.headers;
 
-    return Schedules.findAll({
+    const created_at = req?.query?.created_at;
+
+    let order = [["createdAt", "ASC"]];
+
+    let where = {};
+
+    if (role_id !== SUPER_ADMIN) {
+      where.hospital_id = hospital_id;
+    }
+
+    if (created_at) {
+      order = [["createdAt", created_at]];
+    }
+
+    return Schedules.findAndCountAll({
       where,
+      limit,
+      offset: limit * page,
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
-      // include: [
-      //   {
-      //     model: Treatments,
-      //     order: [["createdAt", "DESC"]],
-      //     attributes: {
-      //       exclude: ["createdAt", "updatedAt"],
-      //     },
-      //   },
-      //   {
-      //     model: Medicines_Treatments,
-      //     order: [["createdAt", "DESC"]],
-      //     attributes: {
-      //       exclude: ["createdAt", "updatedAt"],
-      //     },
-      //   },
-      // ],
+      order,
+      include: [
+        {
+          model: Users,
+          as: "patient",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "admin",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "doctor",
+          attributes: ["id", "first_name", "last_name"],
+        },
+      ],
     });
   }
 
@@ -45,22 +64,29 @@ class SchedulesService {
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
-      // include: [
-      //   {
-      //     model: Treatments,
-      //     order: [["createdAt", "DESC"]],
-      //     attributes: {
-      //       exclude: ["createdAt", "updatedAt"],
-      //     },
-      //   },
-      //   {
-      //     model: Medicines_Treatments,
-      //     order: [["createdAt", "DESC"]],
-      //     attributes: {
-      //       exclude: ["createdAt", "updatedAt"],
-      //     },
-      //   },
-      // ],
+      include: [
+        {
+          model: Users,
+          as: "patient",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+        {
+          model: Users,
+          as: "admin",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+        {
+          model: Users,
+          as: "doctor",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "password"],
+          },
+        },
+      ],
     });
   }
 
