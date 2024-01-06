@@ -20,13 +20,26 @@ class visitsController {
   }
 
   static async getAllVisits(req, res) {
-    const visits = await VisitsService.findAllVisits(req);
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const limitAsNumber = Number.parseInt(req.query.limit);
 
-    if (!visits.length) {
-      throw new AppError(NO_CONTENT, "visits not found", 400);
+    let page = 0;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
+      page = pageAsNumber;
     }
 
-    return res.status(OK).json({ visits });
+    let limit = 5;
+    if (!Number.isNaN(limitAsNumber) && limitAsNumber > 0) {
+      limit = limitAsNumber;
+    }
+    const { rows, count } = await VisitsService.findAllVisits(limit, page, req);
+
+    if (!rows) throw new AppError(NO_CONTENT, "No visits found", 400);
+
+    return res.json({
+      visits: rows,
+      totalPage: Math.ceil(count / limit),
+    });
   }
 
   static async getVisitById(req, res) {

@@ -314,6 +314,30 @@
                     }
                 }
 			},
+            "parameters": [
+                {
+                    "name": "page",
+                    "in": "query",
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "limit",
+                    "in": "query",
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "created_at",
+                    "in": "query",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "created_at=DESC/ASC"
+                }
+            ],
 			"post": {
                 "tags": ["Visits"],
                 "security": [
