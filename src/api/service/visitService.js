@@ -13,7 +13,7 @@ class VisitsService {
 
   static async findAllVisits(limit, page, req = null) {
     const { hospital_id, role_id } = req.headers;
-    const created_at = req?.query.created_at;
+    const created_at = req?.query?.created_at;
 
     let order = [["createdAt", "ASC"]];
 
@@ -22,7 +22,6 @@ class VisitsService {
     if (role_id !== SUPER_ADMIN) {
       where.hospital_id = hospital_id;
     }
-
     if (created_at) {
       order = [["createdAt", created_at]];
     }
@@ -32,7 +31,7 @@ class VisitsService {
       limit,
       offset: limit * page,
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["created_at", "updatedAt"],
       },
       order,
       include: [
@@ -47,7 +46,7 @@ class VisitsService {
           model: Medicines_Treatments,
           order: [["createdAt", "DESC"]],
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: ["created_at", "updatedAt"],
           },
         },
       ],
