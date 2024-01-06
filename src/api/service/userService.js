@@ -9,7 +9,10 @@ const attributes = {
 };
 
 const findOneUser = async (email) => {
-  return await Users.findOne({ where: { email } });
+  return await Users.findOne({
+    where: { email },
+    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+  });
 };
 
 const findUserQuery = async (query) => {
@@ -17,17 +20,36 @@ const findUserQuery = async (query) => {
 };
 
 const findUserAndComparePassword = async (email, password) => {
-  const user = await Users.findOne({ where: { email } });
+  const user = await Users.findOne({
+    where: { email },
+    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+  });
   const comparePassword = await bcryptService.comparePassword(
     password,
-    user.password,
+    user.password
   );
 
   return { user, comparePassword };
 };
 
 const createUser = async (data) => {
-  return Users.create(data);
+  return Users.create(data, {
+    returning: [
+      "id",
+      "first_name",
+      "last_name",
+      "id_number",
+      "date_of_birth",
+      "email",
+      "password",
+      "phone_number",
+      "country_id",
+      "role_id",
+      "hospital_id",
+      "is_active",
+      "is_on_duty",
+    ],
+  });
 };
 
 const register = async ({ email, password, ...body }) => {
