@@ -17,11 +17,12 @@ class SchedulesService {
 
   static async findAllSchedules(limit, page, req = null) {
     const { hospital_id = 0, role_id } = req?.headers;
-    const created_at = req?.query?.created_at;
+    const sort_created_at = req?.query?.sort_created_at;
+    const sort_doctor_id = req?.query?.sort_doctor_id;
     const date_time = req?.query?.date_time || null;
     const filter_by_date = JSON.parse(req.query.filter_by_date || false);
 
-    let order = [["createdAt", "ASC"]];
+    const order = [];
 
     let where = {};
 
@@ -38,8 +39,11 @@ class SchedulesService {
       };
     }
 
-    if (created_at) {
-      order = [["createdAt", created_at]];
+    if (sort_created_at) {
+      order.push(["createdAt", sort_created_at]);
+    }
+    if (sort_doctor_id) {
+      order.push(["doctor_id", sort_doctor_id]);
     }
 
     return Schedules.findAndCountAll({

@@ -500,6 +500,7 @@
                         "schema": {
                             "type": "boolean"
                         },
+                        "example": true,
                         "description": "Put true, if you are filtering by date"
                     },
                     {
@@ -508,7 +509,17 @@
                         "schema": {
                             "type": "string"
                         },
-                        "description": "EX: 2024-12-30, USING UTC ONLY"
+                        "example": "2024-01-06",
+                        "description": "EX: date_time=2024-01-06, USING UTC ONLY"
+                    },
+                    {
+                        "name": "sort_doctor_id",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "ASC",
+                        "description": "EX: sort_doctor_id=ASC"
                     }
                 ],
 				"responses": {
