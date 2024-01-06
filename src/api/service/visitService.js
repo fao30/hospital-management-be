@@ -56,20 +56,6 @@ class VisitsService {
             exclude: ["createdAt", "updatedAt", "hospital_id"],
           },
         },
-        // {
-        //   model: Treatments,
-        //   order: [["createdAt", "DESC"]],
-        //   attributes: {
-        //     exclude: ["createdAt", "updatedAt"],
-        //   },
-        // },
-        // {
-        //   model: Medicines_Treatments,
-        //   order: [["createdAt", "DESC"]],
-        //   attributes: {
-        //     exclude: ["createdAt", "updatedAt"],
-        //   },
-        // },
       ],
     });
   }
@@ -78,9 +64,28 @@ class VisitsService {
     return Visits.findOne({
       where: { id },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ["created_at", "updatedAt"],
       },
       include: [
+        {
+          model: Users,
+          attributes: {
+            exclude: [
+              "createdAt",
+              "updatedAt",
+              "doctor_id",
+              "patient_id",
+              "admin_id",
+            ],
+          },
+        },
+        {
+          model: Hospitals,
+          // order: [["createdAt", "DESC"]],
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "hospital_id"],
+          },
+        },
         {
           model: Treatments,
           order: [["createdAt", "DESC"]],
