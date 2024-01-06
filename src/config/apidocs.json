@@ -479,6 +479,38 @@
                         "bearer": []
                     }
                 ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filter_by_date",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "description": "Put true, if you are filtering by date"
+                    },
+                    {
+                        "name": "date_time",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "EX: 2024-12-30, USING UTC ONLY"
+                    }
+                ],
 				"responses": {
                     "200": {
                         "description": "Success"
