@@ -3,6 +3,8 @@ const {
   Treatments,
   Medicines_Treatments,
   Visits,
+  Hospitals,
+  Users,
   Sequelize,
 } = require("../models");
 
@@ -36,19 +38,38 @@ class VisitsService {
       order,
       include: [
         {
-          model: Treatments,
-          order: [["createdAt", "DESC"]],
+          model: Users,
           attributes: {
-            exclude: ["createdAt", "updatedAt"],
+            exclude: [
+              "createdAt",
+              "updatedAt",
+              "doctor_id",
+              "patient_id",
+              "admin_id",
+            ],
           },
         },
         {
-          model: Medicines_Treatments,
-          order: [["createdAt", "DESC"]],
+          model: Hospitals,
+          // order: [["createdAt", "DESC"]],
           attributes: {
-            exclude: ["created_at", "updatedAt"],
+            exclude: ["createdAt", "updatedAt", "hospital_id"],
           },
         },
+        // {
+        //   model: Treatments,
+        //   order: [["createdAt", "DESC"]],
+        //   attributes: {
+        //     exclude: ["createdAt", "updatedAt"],
+        //   },
+        // },
+        // {
+        //   model: Medicines_Treatments,
+        //   order: [["createdAt", "DESC"]],
+        //   attributes: {
+        //     exclude: ["createdAt", "updatedAt"],
+        //   },
+        // },
       ],
     });
   }
