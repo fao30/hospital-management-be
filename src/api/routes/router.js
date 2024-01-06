@@ -2,6 +2,7 @@ const router = require("express").Router();
 const RolesRoutes = require("./listRoutes/rolesRoutes");
 const CountriesRoutes = require("./listRoutes/countriesRoutes");
 const HospitalsRoutes = require("./listRoutes/hospitalsRoutes");
+const SchedulesRoutes = require("./listRoutes/schedulesRoutes");
 const VisitsRoutes = require("./listRoutes/visitsRoutes");
 const TreatmentsRoutes = require("./listRoutes/treatmentsRoutes");
 const MedicinesRoutes = require("./listRoutes/medicinesRoutes");
@@ -13,6 +14,7 @@ const {
   getJwtToken,
   isSuperAdmin,
   isAdminOrManager,
+  isDoctorOrAdminOrManager,
 } = require("../middlewares/Authorization");
 
 router.use("/login", LoginRoutes);
@@ -21,6 +23,7 @@ router.use("/roles", RolesRoutes);
 router.use("/countries", CountriesRoutes);
 router.use("/hospitals", isSuperAdmin, HospitalsRoutes);
 router.use("/visits", isAdminOrManager, VisitsRoutes);
+router.use("/schedules", isDoctorOrAdminOrManager, SchedulesRoutes);
 router.use("/treatments", TreatmentsRoutes);
 router.use("/medicines", MedicinesRoutes);
 router.use("/medicine-treatments", MedicineTreatmentsRoutes);
