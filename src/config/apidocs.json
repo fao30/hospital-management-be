@@ -1358,6 +1358,9 @@
 					"date_of_birth": {
 						"type": "string"
 					},
+					"id_number": {
+						"type": "string"
+					},
 					"email": {
 						"type": "string"
 					},
