@@ -43,6 +43,7 @@ class schedulesController {
     return res.json({
       schedules: rows,
       totalPage: Math.ceil(count / limit),
+      count,
     });
   }
 

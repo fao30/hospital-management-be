@@ -1,4 +1,5 @@
 const UserService = require("../service/userService");
+const HospitalService = require("../service/hospitalService");
 const AppError = require("../helpers/AppError");
 const {
   NO_CONTENT,
@@ -10,8 +11,11 @@ const {
 
 class usersController {
   static async getAllUsers(req, res) {
+    const hospital_id = req?.headers?.hospital_id || null;
     const pageAsNumber = Number.parseInt(req.query.page);
     const limitAsNumber = Number.parseInt(req.query.limit);
+    const show_hospital = Number.parseInt(req.query.show_hospital || false);
+    let hospital = null;
 
     let page = 0;
     if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
@@ -25,11 +29,19 @@ class usersController {
 
     const { rows, count } = await UserService.findAllUsers(limit, page, req);
 
+    if (hospital_id) {
+      hospital = await HospitalService.findHospitalById(
+        req.headers.hospital_id
+      );
+    }
+
     if (!rows) throw new AppError(NO_CONTENT, "No schedules found", 400);
 
     return res.json({
       users: rows,
       totalPage: Math.ceil(count / limit),
+      count,
+      hospital: hospital_id ? hospital : null,
     });
   }
 }

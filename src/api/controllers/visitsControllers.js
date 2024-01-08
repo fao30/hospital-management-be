@@ -39,6 +39,7 @@ class visitsController {
     return res.json({
       visits: rows,
       totalPage: Math.ceil(count / limit),
+      count,
     });
   }
 
