@@ -1242,12 +1242,6 @@
 					"examples": [1,2, 3],
 					"example": "1: Full Paid, 2: Partially Paid, 3: Unpaid"
 				},
-				"doctor_id": {
-					"type": "integer",
-					"description": "Patient Id",
-					"enum": [1,2, 3],
-					"examples": [1,2, 3]
-				},
 				"patient_id": {
 					"type": "integer",
 					"description": "Patient Id",
