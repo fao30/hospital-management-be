@@ -34,7 +34,6 @@ class usersController {
       hospital = await HospitalService.findHospitalById(
         req.headers.hospital_id
       );
-      totalUsers = await UserService.countUsersOverall(req);
     }
 
     if (!rows) throw new AppError(NO_CONTENT, "No schedules found", 400);
