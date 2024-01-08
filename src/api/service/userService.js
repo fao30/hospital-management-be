@@ -1,4 +1,4 @@
-const { Users } = require("../models/index.js");
+const { Users, Roles } = require("../models/index.js");
 const bcryptService = require("../utils/bcrypt.js");
 const { Op } = require("sequelize");
 
@@ -18,7 +18,14 @@ const findOneUser = async (email) => {
 const findUserQuery = async (query) => {
   return await Users.findAll({
     where: query,
-    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+    include: [
+      {
+        model: Roles,
+      },
+    ],
+    attributes: {
+      exclude: ["doctor_id", "patient_id", "admin_id", "password"],
+    },
   });
 };
 
