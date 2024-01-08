@@ -633,7 +633,6 @@
                         "schema": {
                             "type": "string"
                         },
-                        "example": "ASC",
                         "description": "EX: user_first_name=pa"
                     },
                     {
@@ -642,7 +641,6 @@
                         "schema": {
                             "type": "string"
                         },
-                        "example": "ASC",
                         "description": "EX: user_last_name=pa"
                     },
                     {
@@ -651,7 +649,6 @@
                         "schema": {
                             "type": "string"
                         },
-                        "example": "ASC",
                         "description": "EX: user_phone_number=62"
                     },
                     {
@@ -660,7 +657,6 @@
                         "schema": {
                             "type": "string"
                         },
-                        "example": "ASC",
                         "description": "EX: user_id_number=X11"
                     }
                 ],
@@ -1290,6 +1286,12 @@
 					"enum": [1,2, 3],
 					"examples": [1,2, 3],
 					"example": "1: Full Paid, 2: Partially Paid, 3: Unpaid"
+				},
+				"doctor_id": {
+					"type": "integer",
+					"description": "Patient Id",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
 				},
 				"patient_id": {
 					"type": "integer",
