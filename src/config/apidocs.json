@@ -33,6 +33,10 @@
 			"description": "API for Visits"
 		},
 		{
+			"name": "Users",
+			"description": "API for Users"
+		},
+		{
 			"name": "Treatments",
 			"description": "API for Treatments"
 		},
@@ -292,6 +296,37 @@
                     }
                 }
             }
+		},
+		"/api/users": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get all of Visits",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			},
+            "parameters": [
+                {
+                    "name": "role_id",
+                    "in": "query",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ]	
 		},
 		"/api/visits": {
 			"get": {
