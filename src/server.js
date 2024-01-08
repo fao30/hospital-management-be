@@ -14,22 +14,21 @@ const logger = require("./api/utils/logger");
 const { sequelize } = require("./api/models");
 // import passport strategies
 const passportStrategies = require("../src/api/lib/passport.strategies");
+const http = require("http");
+const swaggerPath = require("./config/apidocs.json");
+const swaggerUI = require("swagger-ui-express");
+const createSocketIO = require("./socket"); // Import the module
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-
-// cors
-const allowedOrigins = `${process.env.ALLOWED_ORIGINS}`.split(",");
-
-const swaggerPath = require("./config/apidocs.json");
-const swaggerUI = require("swagger-ui-express");
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
 
 app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
-  }),
+  })
 );
 
 app.use(morgan("dev"));
@@ -40,11 +39,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(passportInitializer.initialize());
 
+// Use the module to set up Socket.IO
+const server = http.createServer(app);
+const io = createSocketIO.setupSocketIO(server);
+app.set("socketio", io); // Export io to the global level
+
 app.use("/api", router);
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerPath));
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
   logger.info(`Server listening on port ${PORT}`);
   await sequelize.authenticate();
   logger.info(`DB connected successfully`);

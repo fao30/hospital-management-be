@@ -19,6 +19,12 @@ const {
   isDoctorOrAdminOrManager,
 } = require("../middlewares/Authorization");
 
+router.use((req, res, next) => {
+  const globalIo = req.app.get("socketio"); // Get io from the global level
+  req.io = globalIo; // Pass io to the request object
+  next();
+});
+
 router.use("/login", LoginRoutes);
 router.use("/register", getJwtToken, RegisterRoutes);
 router.use("/roles", RolesRoutes);

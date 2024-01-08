@@ -49,10 +49,13 @@
 		"pg-hstore": "^2.3.4",
 		"sequelize": "^6.30.0",
 		"sequelize-cli": "^6.6.0",
+		"socket.io": "^4.7.3",
+		"socket.io-client": "^4.7.3",
 		"string-similarity": "^4.0.4",
 		"swagger-ui-express": "^4.6.2",
 		"validator": "^13.9.0",
 		"wordnet": "^2.0.0",
+		"ws": "^8.16.0",
 		"xlsx": "^0.18.5"
 	},
 	"devDependencies": {
