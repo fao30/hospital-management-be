@@ -82,6 +82,9 @@ const findAllUsers = async (limit, page, req = null) => {
   let where = {};
   if (role_id !== SUPER_ADMIN) {
     where.hospital_id = hospital_id;
+    where.role_id = {
+      [Op.ne]: 1,
+    };
   }
   if (role_id_search) {
     where.role_id = role_id_search;
