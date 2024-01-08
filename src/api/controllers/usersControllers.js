@@ -44,7 +44,6 @@ class usersController {
       totalPage: Math.ceil(count / limit),
       count,
       hospital: hospital_id ? hospital : null,
-      total_users: hospital_id ? totalUsers : null,
     });
   }
 }
