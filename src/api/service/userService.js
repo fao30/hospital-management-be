@@ -54,6 +54,7 @@ const createUser = async (data) => {
       "hospital_id",
       "is_active",
       "is_on_duty",
+      "has_insurance",
     ],
   });
 };

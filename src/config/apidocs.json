@@ -1434,6 +1434,15 @@
 					},
 					"hospital_id": {
 						"type": "integer"
+					},
+					"has_insurance": {
+						"type": "boolean"
+					},
+					"is_active": {
+						"type": "boolean"
+					},
+					"is_on_duty": {
+						"type": "boolean"
 					}
 				}
 			}

@@ -97,6 +97,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      has_insurance: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
       is_on_duty: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
