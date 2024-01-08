@@ -1,3 +1,4 @@
+const { SUPER_ADMIN } = require("../constants/roles.const.js");
 const { Users, Roles } = require("../models/index.js");
 const bcryptService = require("../utils/bcrypt.js");
 const { Op } = require("sequelize");
@@ -18,11 +19,6 @@ const findOneUser = async (email) => {
 const findUserQuery = async (query) => {
   return await Users.findAll({
     where: query,
-    include: [
-      {
-        model: Roles,
-      },
-    ],
     attributes: {
       exclude: ["doctor_id", "patient_id", "admin_id", "password"],
     },
@@ -79,10 +75,45 @@ const register = async ({ email, password, ...body }) => {
   }
 };
 
+const findAllUsers = async (limit, page, req = null) => {
+  const role_id_search = JSON.parse(req.query.role_id || false);
+  const { hospital_id, role_id } = req.headers;
+
+  let where = {};
+  if (role_id !== SUPER_ADMIN) {
+    where.hospital_id = hospital_id;
+  }
+  if (role_id_search) {
+    where.role_id = role_id_search;
+  }
+
+  return await Users.findAndCountAll({
+    where,
+    limit,
+    offset: limit * page,
+    include: [
+      {
+        model: Roles,
+      },
+    ],
+    attributes: {
+      exclude: [
+        "createdAt",
+        "updatedAt",
+        "doctor_id",
+        "patient_id",
+        "admin_id",
+        "password",
+      ],
+    },
+  });
+};
+
 module.exports = {
   createUser,
   findUserAndComparePassword,
   findUserQuery,
   findOneUser,
   register,
+  findAllUsers,
 };
