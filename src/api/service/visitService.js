@@ -20,13 +20,15 @@ class VisitsService {
     let order = [["createdAt", "ASC"]];
 
     let where = {};
-
+    console.log(role_id, "<<-------role_id");
+    console.log(hospital_id, "<<-------hospital_id");
     if (role_id !== SUPER_ADMIN) {
       where.hospital_id = hospital_id;
     }
     if (created_at) {
       order = [["createdAt", created_at]];
     }
+    console.log(where, "<<====where");
 
     return Visits.findAndCountAll({
       where,
