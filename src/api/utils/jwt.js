@@ -6,7 +6,7 @@ const jwtToken = (user) => {
     id: user.id,
     email: user.email,
     role_id: user.role_id,
-    hospital_id: user.role_id || null,
+    hospital_id: user.hospital_id || null,
   };
 
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
