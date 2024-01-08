@@ -47,6 +47,7 @@ passport.use(
           token: token,
           id: user?.id,
           role_id: user?.role_id,
+          hospital_id: user?.hospital_id,
         });
       } catch (err) {
         logger.error(err);
