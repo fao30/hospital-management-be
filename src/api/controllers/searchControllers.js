@@ -9,8 +9,8 @@ const {
 } = require("../constants/statusCode");
 
 class searchController {
-  static async getByKeywords(req, res) {
-    const search = await SearchService.searchByKeywords(req);
+  static async searchUserByKeywords(req, res) {
+    const search = await SearchService.searchUserByKeywords(req);
 
     if (!search.length) {
       throw new AppError(NO_CONTENT, "search not found", 400);

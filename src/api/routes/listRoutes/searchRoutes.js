@@ -4,7 +4,11 @@ const SearchControllers = require("../../controllers/searchControllers");
 const errorMiddleware = require("../../middlewares/ErrorMiddleware");
 const { isAdminOrManager } = require("../../middlewares/Authorization");
 
-router.get("/", isAdminOrManager, tryCatch(SearchControllers.getByKeywords));
+router.get(
+  "/user",
+  isAdminOrManager,
+  tryCatch(SearchControllers.searchUserByKeywords)
+);
 
 router.use(errorMiddleware);
 
