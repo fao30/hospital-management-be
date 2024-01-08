@@ -16,6 +16,7 @@ class usersController {
     const limitAsNumber = Number.parseInt(req.query.limit);
     const show_hospital = Number.parseInt(req.query.show_hospital || false);
     let hospital = null;
+    let totalUsers = null;
 
     let page = 0;
     if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
@@ -33,6 +34,7 @@ class usersController {
       hospital = await HospitalService.findHospitalById(
         req.headers.hospital_id
       );
+      totalUsers = await UserService.countUsersOverall(req);
     }
 
     if (!rows) throw new AppError(NO_CONTENT, "No schedules found", 400);
@@ -42,6 +44,7 @@ class usersController {
       totalPage: Math.ceil(count / limit),
       count,
       hospital: hospital_id ? hospital : null,
+      total_users: hospital_id ? totalUsers : null,
     });
   }
 }

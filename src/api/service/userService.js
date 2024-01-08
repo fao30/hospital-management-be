@@ -112,6 +112,32 @@ const findAllUsers = async (limit, page, req = null) => {
   });
 };
 
+const countUsersOverall = async (req) => {
+  const { hospital_id, role_id } = req.headers;
+
+  let where = {};
+  if (role_id !== SUPER_ADMIN) {
+    where.hospital_id = hospital_id;
+    where.role_id = {
+      [Op.ne]: 1,
+    };
+  }
+
+  return await Users.count({
+    where,
+    attributes: {
+      exclude: [
+        "createdAt",
+        "updatedAt",
+        "doctor_id",
+        "patient_id",
+        "admin_id",
+        "password",
+      ],
+    },
+  });
+};
+
 module.exports = {
   createUser,
   findUserAndComparePassword,
@@ -119,4 +145,5 @@ module.exports = {
   findOneUser,
   register,
   findAllUsers,
+  countUsersOverall,
 };
