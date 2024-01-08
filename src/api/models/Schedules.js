@@ -62,6 +62,16 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
+      hospital_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
+      },
       is_admin_approved: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

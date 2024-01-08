@@ -1024,6 +1024,12 @@
 			"ScheduleInput": {
 			  "type": "object",
 			  "properties": {
+				"hospital_id": {
+					"type": "integer",
+					"description": "Id of the hospital",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
 				"doctor_id": {
 					"type": "integer",
 					"description": "Id of the doctor",

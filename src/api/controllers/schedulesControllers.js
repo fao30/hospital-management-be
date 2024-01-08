@@ -63,6 +63,7 @@ class schedulesController {
       doctor_id,
       patient_id,
       admin_id,
+      hospital_id,
       is_admin_approved,
       is_doctor_approved,
       date_time,
@@ -77,6 +78,7 @@ class schedulesController {
     oldSchedule.doctor_id = doctor_id;
     oldSchedule.patient_id = patient_id;
     oldSchedule.admin_id = admin_id;
+    oldSchedule.hospital_id = hospital_id;
     oldSchedule.is_admin_approved = is_admin_approved;
     oldSchedule.is_doctor_approved = is_doctor_approved;
     oldSchedule.date_time = date_time;
