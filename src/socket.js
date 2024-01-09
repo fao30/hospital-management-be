@@ -28,13 +28,13 @@ function setupSocketIO(server) {
 
     socket.on("disconnect", async () => {
       console.log("A client disconnected", socket.id);
-      if (onlineUsers.has(socket.id)) {
-        //HAPUS DI DB JUGA
-        const user = await userService.findOneUser();
-        const userId = onlineUsers.get(socket.id);
-        onlineUsers.delete(socket.id);
-        console.log(`User ${userId} disconnected`);
-      }
+      // if (onlineUsers.has(socket.id)) {
+      //   //HAPUS DI DB JUGA
+      //   const user = await userService.findOneUser();
+      //   const userId = onlineUsers.get(socket.id);
+      //   onlineUsers.delete(socket.id);
+      //   console.log(`User ${userId} disconnected`);
+      // }
     });
 
     socket.on("error", (error) => {
