@@ -20,7 +20,6 @@ class visitsController {
   }
 
   static async getAllVisits(req, res) {
-    const io = req.io;
     const pageAsNumber = Number.parseInt(req.query.page);
     const limitAsNumber = Number.parseInt(req.query.limit);
 
@@ -34,12 +33,6 @@ class visitsController {
       limit = limitAsNumber;
     }
     const { rows, count } = await VisitsService.findAllVisits(limit, page, req);
-
-    io.emit("someEvent", {
-      visits: rows,
-      totalPage: Math.ceil(count / limit),
-      count,
-    });
 
     if (!rows) throw new AppError(NO_CONTENT, "No visits found", 400);
 

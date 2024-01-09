@@ -6,11 +6,11 @@ let io;
 const onlineUsers = new Map();
 
 function setupSocketIO(server) {
-  io = socketIO(server);
+  io = socketIO(server, {
+    path: "/socket.io/",
+  });
 
   io.on("connection", (socket) => {
-    console.log("A client connected mantapp--------->>>>>>>>>>>>");
-
     socket.on("myEvent", (data) => {
       console.log(socket.id);
       console.log("Received data from client:", data);
@@ -26,13 +26,18 @@ function setupSocketIO(server) {
       }
     });
 
-    socket.on("disconnect", () => {
+    socket.on("disconnect", async () => {
       console.log("A client disconnected");
       if (onlineUsers.has(socket.id)) {
         //HAPUS DI DB JUGA
         // const user = await userService.findOneUser();
         const userId = onlineUsers.get(socket.id);
         onlineUsers.delete(socket.id);
+        const user = await userService.findUserBySocketId(socket.id);
+        if (user) {
+          user.socket_id = null;
+          user.save();
+        }
         console.log(`User ${userId} disconnected`);
       }
     });

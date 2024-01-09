@@ -16,6 +16,20 @@ const findOneUser = async (email) => {
   });
 };
 
+const findUserById = async (id) => {
+  return await Users.findOne({
+    where: { id },
+    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+  });
+};
+
+const findUserBySocketId = async (socket_id) => {
+  return await Users.findOne({
+    where: { socket_id },
+    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
+  });
+};
+
 const findUserQuery = async (query) => {
   return await Users.findAll({
     where: query,
@@ -119,4 +133,6 @@ module.exports = {
   findOneUser,
   register,
   findAllUsers,
+  findUserById,
+  findUserBySocketId,
 };

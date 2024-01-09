@@ -1,4 +1,5 @@
 const SchedulesService = require("../service/scheduleService");
+const UserService = require("../service/userService");
 const AppError = require("../helpers/AppError");
 const {
   NO_CONTENT,
@@ -7,13 +8,24 @@ const {
   BAD_REQUEST,
   CREATED,
 } = require("../constants/statusCode");
+const { DOCTOR } = require("../constants/roles.const");
 
 class schedulesController {
   static async createSchedule(req, res) {
+    const io = req.io;
+    const { role_id } = req.headers;
     const schedule = await SchedulesService.createSchedule(req.body);
 
     if (!schedule) {
       throw new AppError(BAD_REQUEST, "Cannot create schedule", 400);
+    }
+    if (role_id !== DOCTOR) {
+      const user = await UserService.findUserById(schedule.doctor_id);
+      if (user?.socket_id) {
+        io.to(user.socket_id).emit("schedule", {
+          schedule: schedule,
+        });
+      }
     }
 
     return res.status(CREATED).json({ schedule });
