@@ -1313,7 +1313,10 @@
 					"description": "case_notes of the patient",
 					"enum": ["Flu with cought"],
 					"examples": "Flu with cought"	
-				}
+				},
+                "has_insurance": {
+                    "type": "boolean"
+                }
 			  }
 			},
 			"MedicinesInput": {
@@ -1428,9 +1431,6 @@
 					},
 					"hospital_id": {
 						"type": "integer"
-					},
-					"has_insurance": {
-						"type": "boolean"
 					},
 					"is_active": {
 						"type": "boolean"

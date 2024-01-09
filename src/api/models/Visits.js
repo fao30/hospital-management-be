@@ -63,6 +63,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.INTEGER,
       },
+      has_insurance: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
       date_start: {
         allowNull: false,
         type: DataTypes.DATE,
