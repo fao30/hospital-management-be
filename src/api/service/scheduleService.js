@@ -44,7 +44,7 @@ class SchedulesService {
     }
     if (sort_doctor_id) {
       order.push(["doctor_id", sort_doctor_id]);
-      order.push(["date_time", "DESC"]);
+      order.push(["date_time", "ASC"]);
     }
 
     return Schedules.findAndCountAll({
