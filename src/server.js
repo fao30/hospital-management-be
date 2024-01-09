@@ -24,13 +24,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = `${process.env.ALLOWED_ORIGINS}`.split(",");
 
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: allowedOrigins,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 app.use(morgan("dev"));
 
