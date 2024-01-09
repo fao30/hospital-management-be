@@ -74,6 +74,10 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
+      socket_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       role_id: {
         type: DataTypes.INTEGER,
         references: {
