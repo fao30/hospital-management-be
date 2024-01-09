@@ -52,7 +52,7 @@ class visitsController {
 
   static async getVisitById(req, res) {
     const { id } = req.params;
-    const visit = await VisitsService.findVisitById(id);
+    const visit = await VisitsService.findVisitById(req, id);
 
     if (!visit) {
       throw new AppError(NOT_FOUND, "visit not found", 400);
@@ -63,7 +63,7 @@ class visitsController {
 
   static async updateVisit(req, res) {
     const { id } = req.params;
-    const oldVisit = await VisitsService.findVisitById(id);
+    const oldVisit = await VisitsService.findVisitById(req, id);
 
     if (!oldVisit) {
       throw new AppError(NOT_FOUND, "Visit not found to update", 400);

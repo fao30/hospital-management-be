@@ -60,8 +60,9 @@ class VisitsService {
     });
   }
 
-  static async findVisitById(id) {
-    return Visits.findOne({
+  static async findVisitById(req, id) {
+    const { role_id, hospital_id } = req?.headers;
+    const visit = await Visits.findOne({
       where: { id },
       attributes: {
         exclude: ["created_at", "updatedAt"],
@@ -69,6 +70,19 @@ class VisitsService {
       include: [
         {
           model: Users,
+          include: [
+            {
+              model: Visits,
+              attributes: {
+                exclude: [
+                  "createdAt",
+                  "updatedAt",
+                  // "due_amount",
+                  // "paid_amount",
+                ],
+              },
+            },
+          ],
           attributes: {
             exclude: [
               "createdAt",
@@ -103,6 +117,15 @@ class VisitsService {
         },
       ],
     });
+
+    visit?.User.Visits?.forEach((element) => {
+      if (role_id !== SUPER_ADMIN && hospital_id !== element?.hospital_id) {
+        element.due_amount = null;
+        element.paid_amount = null;
+      }
+    });
+
+    return visit;
   }
 
   static async deleteVisit(id) {
