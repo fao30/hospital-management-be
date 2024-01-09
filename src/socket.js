@@ -30,16 +30,10 @@ function setupSocketIO(server) {
       console.log("A client disconnected", socket.id);
       if (onlineUsers.has(socket.id)) {
         //HAPUS DI DB JUGA
-        // const user = await userService.findOneUser();
+        const user = await userService.findOneUser();
         const userId = onlineUsers.get(socket.id);
         onlineUsers.delete(socket.id);
         console.log(`User ${userId} disconnected`);
-      }
-      const user = await userService.findUserBySocketId(socket.id || 0);
-      console.log(user, "<<<< THIS IS USER");
-      if (user) {
-        user.socket_id = null;
-        user.save();
       }
     });
 

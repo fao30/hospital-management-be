@@ -23,13 +23,6 @@ const findUserById = async (id) => {
   });
 };
 
-const findUserBySocketId = async (socket_id) => {
-  return await Users.findOne({
-    where: { socket_id },
-    attributes: { exclude: ["doctor_id", "patient_id", "admin_id"] },
-  });
-};
-
 const findUserQuery = async (query) => {
   return await Users.findAll({
     where: query,
@@ -134,5 +127,4 @@ module.exports = {
   register,
   findAllUsers,
   findUserById,
-  findUserBySocketId,
 };
