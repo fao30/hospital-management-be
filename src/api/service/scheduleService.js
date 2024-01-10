@@ -34,7 +34,7 @@ class SchedulesService {
 
     if (filter_by_date) {
       const startDate = new Date(from_date_time);
-      const endDate = new Date(s);
+      const endDate = new Date(to_date_time);
       where.date_time = {
         [Op.between]: [startDate, endDate],
       };
