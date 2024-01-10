@@ -4,6 +4,7 @@ const {
   Medicines_Treatments,
   Visits,
   Hospitals,
+  Medicines,
   Users,
   Sequelize,
 } = require("../models");
@@ -114,6 +115,15 @@ class VisitsService {
           attributes: {
             exclude: ["createdAt", "updatedAt"],
           },
+          include: [
+            {
+              model: Medicines,
+              // order: [["createdAt", "DESC"]],
+              attributes: {
+                exclude: ["createdAt", "updatedAt", "hospital_id"],
+              },
+            },
+          ],
         },
       ],
     });
