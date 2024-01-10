@@ -21,6 +21,8 @@ class SchedulesService {
     const sort_doctor_id = req?.query?.sort_doctor_id;
     const date_time = req?.query?.date_time || null;
     const filter_by_date = JSON.parse(req.query.filter_by_date || false);
+    const from_date_time = req?.query?.from_date_time || null;
+    const to_date_time = req?.query?.to_date_time || null;
 
     const order = [];
 
@@ -31,8 +33,14 @@ class SchedulesService {
     }
 
     if (filter_by_date) {
-      const startDate = startOfDay(new Date(date_time));
-      const endDate = endOfDay(new Date(date_time));
+      console.log(from_date_time, "<<<<=======from_date_time");
+      console.log(to_date_time, "<<<<=======to_date_time");
+      const startDate = new Date(from_date_time);
+      const endDate = new Date(to_date_time);
+      console.log(startDate, "<<<<=======startDate");
+      console.log(endDate, "<<<<=======endDate");
+      // const startDate = startOfDay(new Date(date_time));
+      // const endDate = endOfDay(new Date(date_time));
 
       where.date_time = {
         [Op.between]: [startDate, endDate],
