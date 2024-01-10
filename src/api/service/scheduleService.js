@@ -33,15 +33,8 @@ class SchedulesService {
     }
 
     if (filter_by_date) {
-      console.log(from_date_time, "<<<<=======from_date_time");
-      console.log(to_date_time, "<<<<=======to_date_time");
       const startDate = new Date(from_date_time);
-      const endDate = new Date(to_date_time);
-      console.log(startDate, "<<<<=======startDate");
-      console.log(endDate, "<<<<=======endDate");
-      // const startDate = startOfDay(new Date(date_time));
-      // const endDate = endOfDay(new Date(date_time));
-
+      const endDate = new Date(s);
       where.date_time = {
         [Op.between]: [startDate, endDate],
       };
