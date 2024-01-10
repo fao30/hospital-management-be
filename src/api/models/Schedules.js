@@ -22,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "admin_id",
         as: "admin",
       });
+      Schedules.belongsTo(models.Users, {
+        foreignKey: "creator_id",
+        as: "creator",
+      });
+      Schedules.belongsTo(models.Users, {
+        foreignKey: "modifier_id",
+        as: "modifier",
+      });
     }
   }
   Schedules.init(
@@ -86,6 +94,26 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: new Date(),
+      },
+      creator_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
+      },
+      modifier_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
       },
       status: {
         type: DataTypes.ENUM,

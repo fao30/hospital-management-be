@@ -13,8 +13,12 @@ const { DOCTOR } = require("../constants/roles.const");
 class schedulesController {
   static async createSchedule(req, res) {
     const io = req.io;
-    const { role_id } = req.headers;
-    const schedule = await SchedulesService.createSchedule(req.body);
+    const { role_id, id } = req.headers;
+    const schedule = await SchedulesService.createSchedule({
+      ...req.body,
+      creator_id: id || null,
+      modifier_id: id || null,
+    });
 
     if (!schedule) {
       throw new AppError(BAD_REQUEST, "Cannot create schedule", 400);
@@ -72,6 +76,7 @@ class schedulesController {
 
   static async updateSchedule(req, res) {
     const { id } = req.params;
+    const { id: id_requester } = req.headers;
     const {
       doctor_id,
       patient_id,
@@ -96,6 +101,7 @@ class schedulesController {
     oldSchedule.is_doctor_approved = is_doctor_approved;
     oldSchedule.date_time = date_time;
     oldSchedule.status = status;
+    oldSchedule.modifier_id = id_requester;
 
     const newSchedule = oldSchedule.save();
 

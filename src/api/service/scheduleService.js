@@ -72,6 +72,16 @@ class SchedulesService {
           as: "doctor",
           attributes: ["id", "first_name", "last_name"],
         },
+        {
+          model: Users,
+          as: "creator",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "modifier",
+          attributes: ["id", "first_name", "last_name"],
+        },
       ],
     });
   }
@@ -103,6 +113,16 @@ class SchedulesService {
           attributes: {
             exclude: ["createdAt", "updatedAt", "password"],
           },
+        },
+        {
+          model: Users,
+          as: "creator",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "modifier",
+          attributes: ["id", "first_name", "last_name"],
         },
       ],
     });

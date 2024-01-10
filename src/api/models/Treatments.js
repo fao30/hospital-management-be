@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       // HERE define association here
       Treatments.belongsTo(models.Users, { foreignKey: "doctor_id" });
       Treatments.belongsTo(models.Visits, { foreignKey: "visit_id" });
+      Treatments.belongsTo(models.Users, {
+        foreignKey: "creator_id",
+        as: "creator",
+      });
+      Treatments.belongsTo(models.Users, {
+        foreignKey: "modifier_id",
+        as: "modifier",
+      });
     }
   }
   Treatments.init(
@@ -46,6 +54,26 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: {
             tableName: "Visits",
+          },
+          key: "id",
+        },
+      },
+      creator_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
+      },
+      modifier_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
           },
           key: "id",
         },

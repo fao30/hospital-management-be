@@ -23,6 +23,24 @@ module.exports = (sequelize, DataTypes) => {
       Users.hasMany(models.Schedules, {
         foreignKey: "admin_id",
       });
+      Users.hasMany(models.Schedules, {
+        foreignKey: "creator_id",
+      });
+      Users.hasMany(models.Schedules, {
+        foreignKey: "modifier_id",
+      });
+      Users.hasMany(models.Treatments, {
+        foreignKey: "creator_id",
+      });
+      Users.hasMany(models.Treatments, {
+        foreignKey: "modifier_id",
+      });
+      Users.hasMany(models.Visits, {
+        foreignKey: "creator_id",
+      });
+      Users.hasMany(models.Visits, {
+        foreignKey: "modifier_id",
+      });
 
       Users.belongsTo(models.Hospitals, {
         foreignKey: "hospital_id",

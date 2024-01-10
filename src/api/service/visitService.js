@@ -51,8 +51,17 @@ class VisitsService {
           },
         },
         {
+          model: Users,
+          as: "creator",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "modifier",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
           model: Hospitals,
-          // order: [["createdAt", "DESC"]],
           attributes: {
             exclude: ["createdAt", "updatedAt", "hospital_id"],
           },
@@ -96,8 +105,17 @@ class VisitsService {
           },
         },
         {
+          model: Users,
+          as: "creator",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
+          model: Users,
+          as: "modifier",
+          attributes: ["id", "first_name", "last_name"],
+        },
+        {
           model: Hospitals,
-          // order: [["createdAt", "DESC"]],
           attributes: {
             exclude: ["createdAt", "updatedAt", "hospital_id"],
           },

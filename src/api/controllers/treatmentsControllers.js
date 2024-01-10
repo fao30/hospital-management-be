@@ -10,11 +10,13 @@ const {
 
 class treatmentController {
   static async createTreatment(req, res) {
-    const { role_id } = req.headers;
+    const { id } = req.headers;
 
     const treatment = await TreatmentService.createTreatment({
       ...req.body,
-      doctor_id: role_id || null,
+      doctor_id: id || null,
+      creator_id: id || null,
+      modifier_id: id || null,
     });
 
     if (!treatment) {
@@ -47,6 +49,7 @@ class treatmentController {
 
   static async updateTreatments(req, res) {
     const { id } = req.params;
+    const { id: id_requester } = req.headers;
     const { doctor_id, medical_treatment, currency, price, visit_id } =
       req.body;
 
@@ -61,6 +64,7 @@ class treatmentController {
     oldTreatments.currency = currency;
     oldTreatments.price = price;
     oldTreatments.visit_id = visit_id;
+    oldTreatments.modifier_id = id_requester;
 
     const newTreatments = oldTreatments.save();
 

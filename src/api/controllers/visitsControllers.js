@@ -10,7 +10,11 @@ const {
 
 class visitsController {
   static async createVisit(req, res) {
-    const visit = await VisitsService.createVisit(req.body);
+    const visit = await VisitsService.createVisit({
+      ...req.body,
+      creator_id: id || null,
+      modifier_id: id || null,
+    });
 
     if (!visit) {
       throw new AppError(BAD_REQUEST, "Cannot create visit", 400);
@@ -56,6 +60,7 @@ class visitsController {
 
   static async updateVisit(req, res) {
     const { id } = req.params;
+    const { id: id_requester } = req.headers;
     const oldVisit = await VisitsService.findVisitById(req, id);
 
     if (!oldVisit) {
@@ -76,6 +81,7 @@ class visitsController {
     oldVisit.diagnosis = diagnosis;
     oldVisit.case_notes = case_notes;
     oldVisit.is_patient_discharged = is_patient_discharged;
+    oldVisit.modifier_id = id_requester;
 
     const newVisit = oldVisit.save();
 

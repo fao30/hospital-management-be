@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       Visits.hasMany(models.Medicines_Treatments, { foreignKey: "visit_id" });
       Visits.belongsTo(models.Hospitals, { foreignKey: "hospital_id" });
       Visits.belongsTo(models.Users, { foreignKey: "patient_id" });
+      Visits.belongsTo(models.Users, {
+        foreignKey: "creator_id",
+        as: "creator",
+      });
+      Visits.belongsTo(models.Users, {
+        foreignKey: "modifier_id",
+        as: "modifier",
+      });
+
       Visits.belongsTo(models.Payment_Statuses, {
         foreignKey: "payment_status_id",
       });
@@ -104,6 +113,26 @@ module.exports = (sequelize, DataTypes) => {
       is_patient_discharged: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+      },
+      creator_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
+      },
+      modifier_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: {
+            tableName: "Users",
+          },
+          key: "id",
+        },
       },
     },
     {
