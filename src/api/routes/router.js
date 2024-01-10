@@ -30,7 +30,7 @@ router.use("/register", getJwtToken, RegisterRoutes);
 router.use("/roles", RolesRoutes);
 router.use("/countries", CountriesRoutes);
 router.use("/hospitals", isSuperAdmin, HospitalsRoutes);
-router.use("/visits", isAdminOrManager, VisitsRoutes);
+router.use("/visits", isDoctorOrAdminOrManager, VisitsRoutes);
 router.use("/schedules", isDoctorOrAdminOrManager, SchedulesRoutes);
 router.use("/treatments", TreatmentsRoutes);
 router.use("/medicines", MedicinesRoutes);
