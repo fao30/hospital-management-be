@@ -161,7 +161,7 @@ const isDoctorOrAdminOrManager = async (req, res, next) => {
   }
 };
 
-const isPharmacistOrAdminOrManager = async (req, res, next) => {
+const isPharmacistOrAdminOrManagerOrDoctor = async (req, res, next) => {
   try {
     const { id, email, role_id, error, hospital_id } = authPublic(req);
     if (!id) throw new AppError(401, "Token data is expired");
@@ -179,6 +179,46 @@ const isPharmacistOrAdminOrManager = async (req, res, next) => {
       role_id !== SUPER_ADMIN &&
       role_id !== ADMIN_HOSPITAL &&
       role_id !== DOCTOR //change it later
+    ) {
+      //IF ROLE IS NOT PHARMACIST, SUPER ADMIN, ADMIN HOSPITAL, MANAGER HOSPITAL
+      throw new AppError(401, "Unauthorized", 401);
+    }
+
+    if (error) throw new AppError(400, "There is no token found", 400);
+
+    req.headers = {
+      id,
+      email,
+      role_id,
+      hospital_id,
+    };
+
+    next();
+  } catch (error) {
+    logger.error(error);
+    return res
+      .status(error.errorCode || 500)
+      .json({ error: true, message: error.message });
+  }
+};
+
+const isPharmacistOrAdminOrManager = async (req, res, next) => {
+  try {
+    const { id, email, role_id, error, hospital_id } = authPublic(req);
+    if (!id) throw new AppError(401, "Token data is expired");
+
+    const query = {
+      id,
+      email,
+    };
+    const user = await userService.findUserQuery(query);
+
+    if (!user) throw new AppError(404, "User not found", 404);
+    if (
+      role_id !== PHARMACIST &&
+      role_id !== MANAGER_HOSPITAL &&
+      role_id !== SUPER_ADMIN &&
+      role_id !== ADMIN_HOSPITAL
     ) {
       //IF ROLE IS NOT PHARMACIST, SUPER ADMIN, ADMIN HOSPITAL, MANAGER HOSPITAL
       throw new AppError(401, "Unauthorized", 401);
@@ -289,4 +329,5 @@ module.exports = {
   isDoctorOrAdminOrManager,
   isDoctor,
   isPharmacistOrAdminOrManager,
+  isPharmacistOrAdminOrManagerOrDoctor,
 };

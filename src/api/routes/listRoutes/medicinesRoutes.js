@@ -4,6 +4,7 @@ const medicinesControllers = require("../../controllers/medicinesControllers");
 const errorMiddleware = require("../../middlewares/ErrorMiddleware");
 const {
   isPharmacistOrAdminOrManager,
+  isPharmacistOrAdminOrManagerOrDoctor,
 } = require("../../middlewares/Authorization");
 
 router.post(
@@ -14,19 +15,19 @@ router.post(
 
 router.get(
   "/",
-  isPharmacistOrAdminOrManager,
+  isPharmacistOrAdminOrManagerOrDoctor,
   tryCatch(medicinesControllers.getAllMedicines)
 );
 
 router.get(
   "/:id",
-  isPharmacistOrAdminOrManager,
+  isPharmacistOrAdminOrManagerOrDoctor,
   tryCatch(medicinesControllers.getMedicineById)
 );
 
 router.put(
   "/:id",
-  isPharmacistOrAdminOrManager,
+  isPharmacistOrAdminOrManagerOrDoctor,
   tryCatch(medicinesControllers.updateMedicines)
 );
 
