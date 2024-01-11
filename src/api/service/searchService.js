@@ -14,7 +14,6 @@ const searchUserByKeywords = async (req) => {
   const hospital_id = req.headers.hospital_id || false;
   const role_id_requester = req.headers.role_id || false;
   const role_id = req.query.role_id || false;
-  console.log(req.headers);
 
   let where = {};
 

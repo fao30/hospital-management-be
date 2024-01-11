@@ -12,7 +12,6 @@ function setupSocketIO(server) {
 
   io.on("connection", (socket) => {
     socket.on("myEvent", (data) => {
-      console.log(socket.id);
       console.log("Received data from client:", data);
       // You can perform any desired actions here
     });

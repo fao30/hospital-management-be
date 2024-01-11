@@ -14,22 +14,12 @@ class schedulesController {
   static async createSchedule(req, res) {
     const io = req.io;
     const { role_id, id } = req.headers;
-    console.log(
-      {
-        ...req.body,
-        creator_id: id || null,
-        admin_id: req.body.admin_id || 1,
-        modifier_id: id || null,
-      },
-      "<<<<<<<============="
-    );
     const schedule = await SchedulesService.createSchedule({
       ...req.body,
       creator_id: id || null,
       admin_id: req.body.admin_id || 1,
       modifier_id: id || null,
     });
-    console.log(schedule, "<<<<<<<<========ERROR");
     if (!schedule) {
       throw new AppError(BAD_REQUEST, "Cannot create schedule", 400);
     }
