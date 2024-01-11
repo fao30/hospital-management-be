@@ -66,13 +66,31 @@ class visitsController {
     if (!oldVisit) {
       throw new AppError(NOT_FOUND, "Visit not found to update", 400);
     }
+    const {
+      weight,
+      patient_id,
+      date_end,
+      hospital_id,
+      date_start,
+      paid_amount,
+      due_amount,
+      payment_status_id,
+      temperature,
+      blood_presure,
+      diagnosis,
+      case_notes,
+      height,
+      is_patient_discharged,
+    } = req.body;
 
     oldVisit.payment_status_id = payment_status_id;
     oldVisit.patient_id = patient_id;
     oldVisit.hospital_id = hospital_id;
     oldVisit.due_amount = due_amount;
     oldVisit.paid_amount = paid_amount;
-    oldVisit.date_start = date_start;
+    if (date_start) {
+      oldVisit.date_start = date_start;
+    }
     oldVisit.date_end = date_end;
     oldVisit.weight = weight;
     oldVisit.height = height;
