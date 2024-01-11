@@ -39,6 +39,7 @@ class SchedulesService {
         [Op.between]: [startDate, endDate],
       };
     }
+    console.log(where, "<<<<====== WHERE");
 
     if (sort_created_at) {
       order.push(["createdAt", sort_created_at]);
