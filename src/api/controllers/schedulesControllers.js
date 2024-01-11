@@ -17,6 +17,7 @@ class schedulesController {
     const schedule = await SchedulesService.createSchedule({
       ...req.body,
       creator_id: id || null,
+      admin_id: req.body.admin_id || 1,
       modifier_id: id || null,
     });
 
@@ -24,6 +25,7 @@ class schedulesController {
       throw new AppError(BAD_REQUEST, "Cannot create schedule", 400);
     }
     if (role_id !== DOCTOR) {
+      //sending notification
       const user = await UserService.findUserById(schedule.doctor_id);
       if (user?.socket_id) {
         io.to(user.socket_id).emit("schedule", {
@@ -95,7 +97,9 @@ class schedulesController {
 
     oldSchedule.doctor_id = doctor_id;
     oldSchedule.patient_id = patient_id;
-    oldSchedule.admin_id = admin_id;
+    if (admin_id) {
+      oldSchedule.admin_id = admin_id;
+    }
     oldSchedule.hospital_id = hospital_id;
     oldSchedule.is_admin_approved = is_admin_approved;
     oldSchedule.is_doctor_approved = is_doctor_approved;
