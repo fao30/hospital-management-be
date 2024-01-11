@@ -10,6 +10,7 @@ const {
 
 class visitsController {
   static async createVisit(req, res) {
+    const { id } = req.headers;
     const visit = await VisitsService.createVisit({
       ...req.body,
       creator_id: id || null,
