@@ -126,20 +126,22 @@ class VisitsService {
           attributes: {
             exclude: ["createdAt", "updatedAt"],
           },
-        },
-        {
-          model: Medicines_Treatments,
-          order: [["createdAt", "DESC"]],
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
           include: [
             {
-              model: Medicines,
-              // order: [["createdAt", "DESC"]],
+              model: Medicines_Treatments,
+              order: [["createdAt", "DESC"]],
               attributes: {
-                exclude: ["createdAt", "updatedAt", "hospital_id"],
+                exclude: ["createdAt", "updatedAt"],
               },
+              include: [
+                {
+                  model: Medicines,
+                  // order: [["createdAt", "DESC"]],
+                  attributes: {
+                    exclude: ["createdAt", "updatedAt", "hospital_id"],
+                  },
+                },
+              ],
             },
           ],
         },

@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       // HERE define association here
       Treatments.belongsTo(models.Users, { foreignKey: "doctor_id" });
       Treatments.belongsTo(models.Visits, { foreignKey: "visit_id" });
+      Treatments.hasMany(models.Medicines_Treatments, {
+        foreignKey: "treatment_id",
+      });
       Treatments.belongsTo(models.Users, {
         foreignKey: "creator_id",
         as: "creator",

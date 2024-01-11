@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "medicine_id",
       });
       Medicines_Treatments.belongsTo(models.Visits, { foreignKey: "visit_id" });
+
+      Medicines_Treatments.belongsTo(models.Treatments, {
+        foreignKey: "treatment_id",
+      });
     }
   }
   Medicines_Treatments.init(
@@ -44,6 +48,15 @@ module.exports = (sequelize, DataTypes) => {
         references: {
           model: {
             tableName: "Visits",
+          },
+          key: "id",
+        },
+      },
+      treatment_id: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: "Treatments",
           },
           key: "id",
         },

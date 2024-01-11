@@ -50,7 +50,13 @@ class medicineTreatmentController {
 
   static async updateMedicineTreatments(req, res) {
     const { id } = req.params;
-    const { medicine_id, medicines_treatment, quantity, visit_id } = req.body;
+    const {
+      medicine_id,
+      medicines_treatment,
+      quantity,
+      visit_id,
+      treatment_id,
+    } = req.body;
 
     const oldMedicineTreatments =
       await MedicineTreatmentsServices.findMedicineById(id);
@@ -63,6 +69,7 @@ class medicineTreatmentController {
     oldMedicineTreatments.medicines_treatment = medicines_treatment;
     oldMedicineTreatments.quantity = quantity;
     oldMedicineTreatments.visit_id = visit_id;
+    oldMedicineTreatments.treatment_id = treatment_id;
 
     const newMedicines = oldMedicineTreatments.save();
 

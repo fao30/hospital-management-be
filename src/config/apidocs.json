@@ -1211,6 +1211,12 @@
 					"enum": [1,2, 3],
 					"examples": [1,2, 3]
 				},
+				"treatment_id": {
+					"type": "integer",
+					"description": "Id of the treatment",
+					"enum": [1,2, 3],
+					"examples": [1,2, 3]
+				},
 				"medicines_treatment": {
 					"type": "string",
 					"description": "Description about the dosis of the medicine",
