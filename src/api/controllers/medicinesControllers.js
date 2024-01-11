@@ -25,18 +25,37 @@ class medicineController {
   }
 
   static async getAllMedicines(req, res) {
-    const medicines = await MedicineService.findAllMedicines();
+    const pageAsNumber = Number.parseInt(req.query.page);
+    const limitAsNumber = Number.parseInt(req.query.limit);
 
-    if (!medicines.length) {
-      throw new AppError(NO_CONTENT, "medicines not found", 400);
+    let page = 0;
+    if (!Number.isNaN(pageAsNumber) && pageAsNumber > 0) {
+      page = pageAsNumber;
     }
 
-    return res.status(OK).json({ medicines });
+    let limit = 5;
+    if (!Number.isNaN(limitAsNumber) && limitAsNumber > 0) {
+      limit = limitAsNumber;
+    }
+
+    const { rows, count } = await MedicineService.findAllMedicines(
+      limit,
+      page,
+      req
+    );
+
+    if (!rows) throw new AppError(NO_CONTENT, "No medicines found", 400);
+
+    return res.json({
+      medicines: rows,
+      totalPage: Math.ceil(count / limit),
+      count,
+    });
   }
 
   static async getMedicineById(req, res) {
     const { id } = req.params;
-    const medicine = await MedicineService.findMedicineById(id);
+    const medicine = await MedicineService.findMedicineById(req, id);
 
     if (!medicine) {
       throw new AppError(NOT_FOUND, "medicine not found", 400);
