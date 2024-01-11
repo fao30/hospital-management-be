@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Medicines extends Model {
+  class List_Prices extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // HERE define association here
-      Medicines.hasMany(models.Medicines_Treatments, {
-        foreignKey: "medicine_id",
-      });
-      Medicines.hasMany(models.Hospitals, {
-        foreignKey: "hospital_id",
-      });
+      // Medicines.hasMany(models.Medicines_Treatments, {
+      //   foreignKey: "medicine_id",
+      // });
+      // Medicines.hasMany(models.Hospitals, {
+      //   foreignKey: "hospital_id",
+      // });
     }
   }
-  Medicines.init(
+  List_Prices.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,26 +35,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      article_number: {
-        type: DataTypes.STRING,
-      },
-      dose: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-      },
-      dose: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
-      cost: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
-      discount: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
-      name: {
+      treatment_name: {
         type: DataTypes.STRING,
       },
       currency: {
@@ -65,23 +46,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      in_stock: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      manufacturer: {
-        type: DataTypes.STRING,
-        defaultValue: "-",
-      },
-      expiry_date: {
-        allowNull: true,
-        type: DataTypes.DATE,
-      },
     },
     {
       sequelize,
-      modelName: "Medicines",
+      modelName: "List_Prices",
     }
   );
-  return Medicines;
+  return List_Prices;
 };
