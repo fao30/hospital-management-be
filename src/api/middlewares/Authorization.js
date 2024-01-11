@@ -177,7 +177,8 @@ const isPharmacistOrAdminOrManager = async (req, res, next) => {
       role_id !== PHARMACIST &&
       role_id !== MANAGER_HOSPITAL &&
       role_id !== SUPER_ADMIN &&
-      role_id !== ADMIN_HOSPITAL
+      role_id !== ADMIN_HOSPITAL &&
+      role_id !== DOCTOR //change it later
     ) {
       //IF ROLE IS NOT PHARMACIST, SUPER ADMIN, ADMIN HOSPITAL, MANAGER HOSPITAL
       throw new AppError(401, "Unauthorized", 401);
