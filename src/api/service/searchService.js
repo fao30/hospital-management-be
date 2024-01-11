@@ -20,10 +20,10 @@ const searchUserByKeywords = async (req) => {
 
   if (key_words) {
     where[Op.or] = [
-      { first_name: { [Op.like]: `%${key_words}%` } },
-      { last_name: { [Op.like]: `%${key_words}%` } },
-      { id_number: { [Op.like]: `%${key_words}%` } },
-      { phone_number: { [Op.like]: `%${key_words}%` } },
+      { first_name: { [Op.iLike]: `%${key_words}%` } },
+      { last_name: { [Op.iLike]: `%${key_words}%` } },
+      { id_number: { [Op.iLike]: `%${key_words}%` } },
+      { phone_number: { [Op.iLike]: `%${key_words}%` } },
     ];
   }
 
