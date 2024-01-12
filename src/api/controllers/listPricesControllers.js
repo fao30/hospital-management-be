@@ -14,6 +14,7 @@ class priceListController {
 
     const list_price = await ListPriceService.createListPrices({
       ...req.body,
+      treatment_name: req.body.treatment_name.toUpperCase(),
       hospital_id: hospital_id || null,
     });
 

@@ -15,6 +15,7 @@ class medicineController {
     const medicine = await MedicineService.createMedicine({
       ...req.body,
       hospital_id: hospital_id || null,
+      name: req.body.name.toUpperCase(),
     });
 
     if (!medicine) {

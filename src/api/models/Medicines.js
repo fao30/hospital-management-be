@@ -46,11 +46,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      cost: {
+      batch: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      discount: {
+      cost: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
