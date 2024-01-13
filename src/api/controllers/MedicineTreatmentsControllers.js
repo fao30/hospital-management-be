@@ -73,8 +73,16 @@ class medicineTreatmentController {
       const difference = oldMedicineTreatments.quantity - quantity; //10-5
       oldMedicine.in_stock = oldMedicine.in_stock + difference;
     } else if (quantity >= oldMedicineTreatments.quantity) {
+      //TAMBAH
+      // GUDANG ada 2, minta 3
+      //oldMedicine.in_stock 2 dan quantity 3
+      //oldMedicineTreatments.quantity 1 dan quantity 3
+      const difference = quantity - oldMedicineTreatments.quantity; //2
+
       const newStockAmount = oldMedicine.in_stock - quantity;
-      if (newStockAmount < 0) {
+      //oldMedicine.in_stock 2
+      if (oldMedicine.in_stock >= difference) {
+        // if (newStockAmount < 0) {
         throw new AppError(BAD_REQUEST, "Medicine is not enough", 400);
       }
       oldMedicine.in_stock = newStockAmount;
