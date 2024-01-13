@@ -100,7 +100,9 @@ class medicineTreatmentController {
   static async deleteMedicineTreatments(req, res) {
     const { id } = req.params;
 
-    const deleted = await MedicineTreatmentsServices.deleteMedicine(id);
+    const deleted = await MedicineTreatmentsServices.deleteMedicineTreatment(
+      id
+    );
 
     if (!deleted) {
       throw new AppError(BAD_REQUEST, "Cannot delete Medicine", 400);

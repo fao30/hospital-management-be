@@ -61,7 +61,6 @@ const searchMedicineByKeywords = async (req) => {
     //IF NOT LOOKING FOR PATIENT, THEN ONLY SHOW IT OWNS HOSPITAL USER LIST
     where.hospital_id = hospital_id;
   }
-  console.log(where, "<<====where");
 
   return await Medicines.findAll({
     where,

@@ -59,7 +59,48 @@ class medicineTreatmentsService {
   }
 
   static async deleteMedicineTreatment(id) {
-    return Medicines_Treatments.destroy({ where: { id } });
+    let transaction;
+    try {
+      transaction = await sequelize.transaction();
+
+      const oldMedicineTreatments = await Medicines_Treatments.findOne({
+        where: { id },
+        include: [
+          {
+            model: Medicines,
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+        transaction,
+      });
+
+      const oldMedicine = await Medicines.findOne({
+        where: { id: oldMedicineTreatments?.Medicine?.id },
+        transaction,
+      });
+
+      const deleteRes = await Medicines_Treatments.destroy({
+        where: { id },
+        transaction,
+      });
+
+      if (!deleteRes) {
+        throw new AppError(BAD_REQUEST, "Cannot delete Medicine", 400);
+      }
+
+      oldMedicine.in_stock =
+        oldMedicine.in_stock + oldMedicineTreatments.quantity;
+      await oldMedicine.save({ transaction });
+
+      await transaction.commit();
+
+      return true;
+    } catch (error) {
+      if (transaction) await transaction.rollback();
+      throw error;
+    }
   }
 }
 
