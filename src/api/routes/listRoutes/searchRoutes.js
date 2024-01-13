@@ -2,7 +2,10 @@ const router = require("express").Router();
 const { tryCatch } = require("../../utils/tryCatch");
 const SearchControllers = require("../../controllers/searchControllers");
 const errorMiddleware = require("../../middlewares/ErrorMiddleware");
-const { isAdminOrManager } = require("../../middlewares/Authorization");
+const {
+  isAdminOrManager,
+  isDoctorOrAdminOrManager,
+} = require("../../middlewares/Authorization");
 
 router.get(
   "/user",
@@ -12,7 +15,7 @@ router.get(
 
 router.get(
   "/medicines",
-  isAdminOrManager,
+  isDoctorOrAdminOrManager,
   tryCatch(SearchControllers.searchMedicineByKeywords)
 );
 
