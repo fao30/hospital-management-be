@@ -69,22 +69,10 @@ class medicineTreatmentController {
       medicine_id
     );
 
-    console.log(quantity, "<<<====quantity SESUDAH");
-    console.log(oldMedicine.in_stock, "<<<====Medicine quantity SEBELUM");
-
-    console.log(
-      oldMedicineTreatments.quantity,
-      "<<<====oldMedicineTreatments QUANTITY"
-    );
-
-    if (quantity < oldMedicine.in_stock) {
-      //HERE NEED TO RETURN TO in_stock
-      console.log("RETURN");
-      const difference = oldMedicine.in_stock - quantity;
+    if (quantity < oldMedicineTreatments.quantity) {
+      const difference = oldMedicineTreatments.quantity - quantity; //10-5
       oldMedicine.in_stock = oldMedicine.in_stock + difference;
-    } else if (quantity >= oldMedicine.in_stock) {
-      //HERE ADD TAKE MEDICIENE IN in_stock
-      console.log("TAKE");
+    } else if (quantity >= oldMedicineTreatments.quantity) {
       const newStockAmount = oldMedicine.in_stock - quantity;
       if (newStockAmount < 0) {
         throw new AppError(BAD_REQUEST, "Medicine is not enough", 400);
