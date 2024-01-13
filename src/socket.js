@@ -26,7 +26,7 @@ function setupSocketIO(server) {
     });
 
     socket.on("disconnect", async () => {
-      console.log("A client disconnected", socket.id);
+      // console.log("A client disconnected", socket.id);
       // if (onlineUsers.has(socket.id)) {
       //   //HAPUS DI DB JUGA
       //   const user = await userService.findOneUser();
