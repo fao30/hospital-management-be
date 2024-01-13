@@ -18,5 +18,14 @@ class searchController {
 
     return res.status(OK).json({ search });
   }
+  static async searchMedicineByKeywords(req, res) {
+    const search = await SearchService.searchMedicineByKeywords(req);
+
+    if (!search.length) {
+      throw new AppError(NO_CONTENT, "search not found", 400);
+    }
+
+    return res.status(OK).json({ search });
+  }
 }
 module.exports = searchController;

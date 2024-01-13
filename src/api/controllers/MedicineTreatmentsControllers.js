@@ -1,4 +1,5 @@
 const MedicineTreatmentsServices = require("../service/medicineTreatmentsServices");
+const MedicineService = require("../service/medicineService");
 const AppError = require("../helpers/AppError");
 const {
   NO_CONTENT,
@@ -50,6 +51,8 @@ class medicineTreatmentController {
 
   static async updateMedicineTreatments(req, res) {
     const { id } = req.params;
+    // const is_return = JSON.parse(req.query.is_return || false);
+
     const {
       medicine_id,
       medicines_treatment,
@@ -59,7 +62,37 @@ class medicineTreatmentController {
     } = req.body;
 
     const oldMedicineTreatments =
-      await MedicineTreatmentsServices.findMedicineById(id);
+      await MedicineTreatmentsServices.findMedicineTreatmentById(id);
+
+    const oldMedicine = await MedicineService.findMedicineById(
+      req,
+      medicine_id
+    );
+
+    console.log(quantity, "<<<====quantity SESUDAH");
+    console.log(oldMedicine.in_stock, "<<<====Medicine quantity SEBELUM");
+
+    console.log(
+      oldMedicineTreatments.quantity,
+      "<<<====oldMedicineTreatments QUANTITY"
+    );
+
+    if (quantity < oldMedicine.in_stock) {
+      //HERE NEED TO RETURN TO in_stock
+      console.log("RETURN");
+      const difference = oldMedicine.in_stock - quantity;
+      oldMedicine.in_stock = oldMedicine.in_stock + difference;
+    } else if (quantity >= oldMedicine.in_stock) {
+      //HERE ADD TAKE MEDICIENE IN in_stock
+      console.log("TAKE");
+      const newStockAmount = oldMedicine.in_stock - quantity;
+      if (newStockAmount < 0) {
+        throw new AppError(BAD_REQUEST, "Medicine is not enough", 400);
+      }
+      oldMedicine.in_stock = newStockAmount;
+    }
+
+    oldMedicineTreatments.quantity = quantity;
 
     if (!oldMedicineTreatments) {
       throw new AppError(NOT_FOUND, "Medicines not found to update", 400);
@@ -67,11 +100,11 @@ class medicineTreatmentController {
 
     oldMedicineTreatments.medicine_id = medicine_id;
     oldMedicineTreatments.medicines_treatment = medicines_treatment;
-    oldMedicineTreatments.quantity = quantity;
     oldMedicineTreatments.visit_id = visit_id;
     oldMedicineTreatments.treatment_id = treatment_id;
 
-    const newMedicines = oldMedicineTreatments.save();
+    oldMedicineTreatments.save();
+    oldMedicine.save();
 
     return res.json({ message: "Updated" });
   }

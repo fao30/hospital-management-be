@@ -10,6 +10,12 @@ router.get(
   tryCatch(SearchControllers.searchUserByKeywords)
 );
 
+router.get(
+  "/medicines",
+  isAdminOrManager,
+  tryCatch(SearchControllers.searchMedicineByKeywords)
+);
+
 router.use(errorMiddleware);
 
 module.exports = router;

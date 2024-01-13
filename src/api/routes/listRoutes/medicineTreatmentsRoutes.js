@@ -19,7 +19,7 @@ router.get(
 router.get(
   "/:id",
   isDoctorOrAdminOrManager,
-  tryCatch(medicineTreatmentsControllers.getAllMedicineTreatments)
+  tryCatch(medicineTreatmentsControllers.getMedicineTreatmentById)
 );
 
 router.put(
