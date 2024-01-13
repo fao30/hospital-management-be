@@ -68,24 +68,32 @@ class medicineTreatmentController {
       req,
       medicine_id
     );
-
+    console.log(quantity, "<<<====quantity");
+    console.log(
+      oldMedicineTreatments.quantity,
+      "<<<====oldMedicineTreatments.quantity"
+    );
     if (quantity < oldMedicineTreatments.quantity) {
+      console.log("ATAS");
       const difference = oldMedicineTreatments.quantity - quantity; //10-5
       oldMedicine.in_stock = oldMedicine.in_stock + difference;
-    } else if (quantity >= oldMedicineTreatments.quantity) {
+    } else if (quantity > oldMedicineTreatments.quantity) {
+      console.log("BAWAH");
       //TAMBAH
       // GUDANG ada 2, minta 3
       //oldMedicine.in_stock 2 dan quantity 3
       //oldMedicineTreatments.quantity 1 dan quantity 3
       const difference = quantity - oldMedicineTreatments.quantity; //2
+      // console.log(difference, "<<===difference");
 
-      const newStockAmount = oldMedicine.in_stock - quantity;
+      //oldMedicine.in_stock 2 quantity 3
+      // const newStockAmount = oldMedicine.in_stock - quantity;
       //oldMedicine.in_stock 2
       if (oldMedicine.in_stock >= difference) {
         // if (newStockAmount < 0) {
         throw new AppError(BAD_REQUEST, "Medicine is not enough", 400);
       }
-      oldMedicine.in_stock = newStockAmount;
+      oldMedicine.in_stock = oldMedicine.in_stock - difference;
     }
 
     oldMedicineTreatments.quantity = quantity;

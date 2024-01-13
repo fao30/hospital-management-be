@@ -52,6 +52,14 @@ class medicineTreatmentsService {
   static async findMedicineTreatmentById(id) {
     return Medicines_Treatments.findOne({
       where: { id },
+      include: [
+        {
+          model: Medicines,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
       attributes: {
         exclude: ["createdAt", "updatedAt"],
       },
