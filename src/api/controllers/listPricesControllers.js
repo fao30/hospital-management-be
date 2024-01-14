@@ -68,9 +68,9 @@ class priceListController {
   static async updateListPricesById(req, res) {
     const { id } = req.params;
     const { hospital_id: hospital_id_requester } = req.headers;
-    const { hospital_id, treatment_name, currency } = req.body;
+    const { hospital_id, treatment_name, currency, price } = req.body;
 
-    const oldpricelist = await ListPriceService.findListPricesById(id);
+    const oldpricelist = await ListPriceService.findListPricesById(req, id);
 
     if (!oldpricelist) {
       throw new AppError(NOT_FOUND, "Medicines not found to update", 400);
@@ -80,7 +80,6 @@ class priceListController {
     oldpricelist.treatment_name = treatment_name;
     oldpricelist.currency = currency;
     oldpricelist.price = price;
-    oldpricelist.in_stock = in_stock;
 
     const newMedicines = oldpricelist.save();
 
