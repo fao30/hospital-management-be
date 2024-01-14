@@ -55,6 +55,23 @@ class visitsController {
     if (!visit) {
       throw new AppError(NOT_FOUND, "visit not found", 400);
     }
+    let due_amount = 0;
+
+    visit?.Treatments.forEach((element) => {
+      due_amount += element.price;
+
+      const Medicines_Treatments = element.Medicines_Treatments;
+
+      for (let index = 0; index < Medicines_Treatments.length; index++) {
+        const quantity = Medicines_Treatments[index].quantity;
+        const price = Medicines_Treatments[index].Medicine.price;
+        const total_price_per_medicine = quantity * price;
+        due_amount += total_price_per_medicine;
+      }
+    });
+
+    visit.due_amount = due_amount;
+    visit.save();
 
     return res.json({ visit });
   }
