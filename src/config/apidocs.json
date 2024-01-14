@@ -794,6 +794,38 @@
                 }
 			}
 		},
+		"/api/search/price-list": {
+			"get": {
+				"tags": ["Search"],
+				"summary": "Search entity price-list by keywords",
+				"security": [
+                    {
+                        "bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "key_words",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "search by treatment_name"
+                    }
+                ],
+				"responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+			}
+		},
 		"/api/schedules/{id}": {
             "get": {
                 "tags": ["Schedules"],

@@ -19,6 +19,12 @@ router.get(
   tryCatch(SearchControllers.searchMedicineByKeywords)
 );
 
+router.get(
+  "/price-list",
+  isDoctorOrAdminOrManager,
+  tryCatch(SearchControllers.searchPriceListByKeywords)
+);
+
 router.use(errorMiddleware);
 
 module.exports = router;

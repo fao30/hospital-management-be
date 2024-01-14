@@ -27,5 +27,15 @@ class searchController {
 
     return res.status(OK).json({ search });
   }
+
+  static async searchPriceListByKeywords(req, res) {
+    const search = await SearchService.searchPriceListByKeywords(req);
+
+    if (!search.length) {
+      throw new AppError(NO_CONTENT, "search not found", 400);
+    }
+
+    return res.status(OK).json({ search });
+  }
 }
 module.exports = searchController;
