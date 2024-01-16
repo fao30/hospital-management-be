@@ -18,8 +18,9 @@ function setupSocketIO(server) {
 
     socket.on("add-socket-id", async (email) => {
       const user = await userService.findOneUser(email);
-      if (user?.role_id !== PATIENT && !user.socket_id) {
+      if (user?.role_id !== PATIENT) {
         user.socket_id = socket.id;
+        console.log(user.socket_id, "<<<======================user.socket_id");
         user.save();
         onlineUsers.set(socket.id, user.id);
       }
