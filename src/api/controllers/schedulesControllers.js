@@ -33,6 +33,17 @@ class schedulesController {
       }
     }
 
+    if (role_id !== DOCTOR) {
+      //sending notification
+      const user = await UserService.findUserById(id);
+      console.log("MASKERRRR====>>>>>", user?.socket_id);
+      if (user?.socket_id) {
+        io.to(user.socket_id).emit("schedule", {
+          schedule: schedule,
+        });
+      }
+    }
+
     return res.status(CREATED).json({ schedule });
   }
 
