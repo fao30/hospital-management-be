@@ -38,7 +38,8 @@ class schedulesController {
       const user = await UserService.findUserById(id);
       console.log("MASKERRRR====>>>>>", user?.socket_id);
       if (user?.socket_id) {
-        io.to(user.socket_id).emit("schedule", {
+        io.emit("schedule", {
+          // io.to(user.socket_id).emit("schedule", {
           schedule: schedule,
         });
       }
